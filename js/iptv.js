@@ -13,13 +13,76 @@ const GROUP_PRIORITY = [
   "General",
 ];
 
+/** Search terms that mean "show me MENA/Arabic channels" even when they don't
+ * match any channel or group name directly. */
+const MENA_QUERY_TERMS = [
+  "mena",
+  "middle east",
+  "middleeast",
+  "gulf",
+  "arab",
+  "arabic",
+  "الشرق الأوسط",
+  "الشرق الاوسط",
+  "عربي",
+  "عربية",
+  "عرب",
+  "خليج",
+];
+
+export function isMenaQuery(query) {
+  const q = String(query || "").trim().toLowerCase();
+  if (!q) return false;
+  return MENA_QUERY_TERMS.some((term) => q.includes(term.toLowerCase()));
+}
+
+/** ISO country codes used in iptv-org tvg-id (e.g. AlJazeera.qa@SD) */
+export const MENA_COUNTRY_CODES = new Set([
+  "sa",
+  "ae",
+  "eg",
+  "qa",
+  "kw",
+  "bh",
+  "om",
+  "iq",
+  "sy",
+  "ye",
+  "jo",
+  "lb",
+  "ps",
+  "ma",
+  "tn",
+  "dz",
+  "ly",
+  "sd",
+  "mr",
+  "dj",
+  "so",
+  "km",
+]);
+
 function attr(line, key) {
   const re = new RegExp(`${key}="([^"]*)"`, "i");
   const m = line.match(re);
   return m ? m[1] : "";
 }
 
-/** @returns {{ name: string, url: string, logo: string, group: string, id: string }[]} */
+export function countryFromTvgId(id = "") {
+  const m = String(id || "").match(/\.([a-z]{2})(?:@|$)/i);
+  return m ? m[1].toLowerCase() : "";
+}
+
+export function isMenaChannel(ch) {
+  const cc = ch?.country || countryFromTvgId(ch?.id);
+  if (cc && MENA_COUNTRY_CODES.has(cc)) return true;
+  // Fallback: Arabic / Gulf channel names when tvg-id has no country
+  return /alarabiya|aljazeera|al\s*hadath|mbc|beIN|dubai|abu\s*dhabi|sharjah|saudi|egypt|qatar|kuwait|bahrain|oman|iraq|syria|yemen|jordan|lebanon|palestine|morocco|tunisia|algeria|libya|sudan/i.test(
+    String(ch?.name || "")
+  );
+}
+
+/** @returns {{ name: string, url: string, logo: string, group: string, id: string, country: string }[]} */
 export function parseM3U(text) {
   const lines = String(text || "").split(/\r?\n/);
   const out = [];
@@ -29,11 +92,13 @@ export function parseM3U(text) {
     if (!line) continue;
     if (line.startsWith("#EXTINF:")) {
       const name = line.includes(",") ? line.slice(line.lastIndexOf(",") + 1).trim() : "Channel";
+      const id = attr(line, "tvg-id") || "";
       pending = {
         name,
         logo: attr(line, "tvg-logo"),
         group: (attr(line, "group-title") || "Other").split(";")[0].trim() || "Other",
-        id: attr(line, "tvg-id") || "",
+        id,
+        country: countryFromTvgId(id),
       };
       continue;
     }

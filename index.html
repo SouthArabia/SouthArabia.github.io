@@ -303,10 +303,48 @@
   </div><!-- /app-shell -->
 
   <script>
-    // Force iOS Safari off stale service workers / caches
+    // Force iOS Safari off stale service workers / caches.
+    // A SW from before the network-first shell fix can keep answering the
+    // navigation request for this very page from its own stale cache, which
+    // means the browser never even sees this updated script. So the FIRST
+    // thing we do — before anything else runs — is a one-time hard wipe +
+    // reload with no SW/cache involved at all, guarded by a version marker
+    // so it only happens once per deploy instead of looping forever.
     (function () {
+      var FORCE_KEY = "shaib_pwa_force_fresh_v81";
+      var alreadyForced = false;
+      try {
+        alreadyForced = localStorage.getItem(FORCE_KEY) === "1";
+      } catch (e) {}
+
+      if (!alreadyForced && "serviceWorker" in navigator) {
+        try {
+          localStorage.setItem(FORCE_KEY, "1");
+        } catch (e) {}
+        navigator.serviceWorker.getRegistrations().then(function (regs) {
+          var hadRegs = regs.length > 0;
+          return Promise.all(regs.map(function (r) { return r.unregister(); })).then(function () {
+            if (!(window.caches && caches.keys)) return hadRegs;
+            return caches.keys().then(function (keys) {
+              return Promise.all(keys.map(function (k) { return caches.delete(k); })).then(function () {
+                return hadRegs || keys.length > 0;
+              });
+            });
+          });
+        }).catch(function () {
+          return false;
+        }).then(function (hadAnythingStale) {
+          if (hadAnythingStale) {
+            location.reload();
+          } else {
+            navigator.serviceWorker.register("./sw.js?v=81").catch(function () {});
+          }
+        });
+        return;
+      }
+
       if (!("serviceWorker" in navigator)) return;
-      var SW_URL = "./sw.js?v=53";
+      var SW_URL = "./sw.js?v=81";
       navigator.serviceWorker.getRegistrations().then(function (regs) {
         return Promise.all(
           regs.map(function (r) {
@@ -324,7 +362,7 @@
       }).catch(function () {});
     })();
   </script>
-  <script type="module" src="./js/app.js?v=53"></script>
+  <script type="module" src="./js/app.js?v=81"></script>
   <script>
     (function () {
       // Lightweight tab switching fallback (works even if modules are busy)

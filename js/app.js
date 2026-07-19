@@ -15,6 +15,8 @@ import {
   IPTV_PLAYLIST_URL,
   fetchIptvPlaylist,
   groupChannels,
+  isMenaChannel,
+  isMenaQuery,
 } from "./iptv.js";
 
 const SOUTH_ARABIA_FLAG = "./assets/flags/south-yemen.svg";
@@ -316,6 +318,7 @@ function ensurePlayer() {
       state.hls = hls;
     },
     t: (key) => t(state.prefs.lang, key),
+    isAutoSkipEnabled: () => state.prefs.autoSkip !== false,
   });
   return state.player;
 }
@@ -602,25 +605,71 @@ function renderIptv() {
   }
 
   const q = state.iptv.query.trim().toLowerCase();
+  const autoSkipOn = state.prefs.autoSkip !== false;
+  const isGroupsView = state.iptv.view !== "channels" || !state.iptv.group;
+  const total = data.channels?.length || 0;
+  const menaCount = (data.channels || []).filter(isMenaChannel).length;
+  let channelResults = [];
   let html = `
     <div class="iptv-toolbar">
       <input id="iptv-search" type="search" enterkeyhint="search" placeholder="${t(lang, "iptvSearch")}" value="${state.iptv.query.replace(/"/g, "&quot;")}" />
+      <button type="button" id="iptv-autoskip" class="btn ghost autoskip-toggle ${autoSkipOn ? "on" : "off"}" aria-pressed="${autoSkipOn}">
+        ${t(lang, autoSkipOn ? "autoSkipOn" : "autoSkipOff")}
+      </button>
     </div>`;
+
+  if (isGroupsView) {
+    html += `
+      <div class="canvas-wide" style="margin-bottom:12px">
+        ${tileButton({
+          id: "iptv-mena",
+          kind: "ch4",
+          title: t(lang, "iptvMena"),
+          subtitle: `${menaCount} ${t(lang, "iptvChannels")}`,
+          icon: "bolt",
+          emphasized: true,
+        })}
+      </div>
+      <div class="canvas-wide" style="margin-bottom:12px">
+        ${tileButton({
+          id: "iptv-all",
+          kind: "ch4",
+          title: t(lang, "iptvAll"),
+          subtitle: `${total} ${t(lang, "iptvChannels")}`,
+          icon: "tv",
+          emphasized: true,
+        })}
+      </div>`;
+  }
 
   if (state.iptv.view === "channels" && state.iptv.group) {
     const allMode = state.iptv.group === "__all__";
-    const group = allMode ? null : data.groups.find((g) => g.name === state.iptv.group);
-    let list = allMode ? data.channels || [] : group?.channels || [];
+    const menaMode = state.iptv.group === "__mena__";
+    const group =
+      allMode || menaMode
+        ? null
+        : data.groups.find((g) => g.name === state.iptv.group);
+    let list = allMode
+      ? data.channels || []
+      : menaMode
+        ? (data.channels || []).filter(isMenaChannel)
+        : group?.channels || [];
     if (q) {
+      const menaQuery = isMenaQuery(q);
       list = list.filter(
         (c) =>
           c.name.toLowerCase().includes(q) ||
-          iptvGroupMatchesQuery(lang, c.group, q)
+          iptvGroupMatchesQuery(lang, c.group, q) ||
+          (menaQuery && isMenaChannel(c))
       );
     }
     const page = state.iptv.page;
     const slice = list.slice(0, (page + 1) * IPTV_PAGE_SIZE);
-    const heading = allMode ? t(lang, "iptvAll") : iptvGroupLabel(lang, state.iptv.group);
+    const heading = allMode
+      ? t(lang, "iptvAll")
+      : menaMode
+        ? t(lang, "iptvMena")
+        : iptvGroupLabel(lang, state.iptv.group);
     html += `
       <div class="iptv-back-row">
         <button type="button" class="btn ghost" id="iptv-back">‹ ${t(lang, "iptvBack")}</button>
@@ -645,9 +694,16 @@ function renderIptv() {
     if (slice.length < list.length) {
       html += `<div style="margin:14px 0;text-align:center"><button type="button" class="btn" id="iptv-more">${t(lang, "iptvMore")}</button></div>`;
     }
-  } else {
+  } else if (isGroupsView) {
     let groups = data.groups;
     if (q) {
+      const menaQuery = isMenaQuery(q);
+      channelResults = (data.channels || []).filter(
+        (c) =>
+          c.name.toLowerCase().includes(q) ||
+          iptvGroupMatchesQuery(lang, c.group, q) ||
+          (menaQuery && isMenaChannel(c))
+      );
       groups = groups
         .map((g) => {
           const nameHit = iptvGroupMatchesQuery(lang, g.name, q);
@@ -658,30 +714,33 @@ function renderIptv() {
         })
         .filter((g) => g.count > 0 || iptvGroupMatchesQuery(lang, g.name, q));
     }
-    const total = data.channels?.length || 0;
     html += `
-      <div class="canvas-wide" style="margin-bottom:12px">
-        ${tileButton({
-          id: "iptv-all",
-          kind: "ch4",
-          title: t(lang, "iptvAll"),
-          subtitle: `${total} ${t(lang, "iptvChannels")}`,
-          icon: "tv",
-          emphasized: true,
-        })}
-      </div>
       <div class="canvas-grid">
-        ${groups
-          .map((g) =>
-            iptvTileHtml({
-              id: `grp:${g.name}`,
-              title: iptvGroupLabel(lang, g.name),
-              subtitle: `${g.count} ${t(lang, "iptvChannels")}`,
-              icon: /sport/i.test(g.name) ? "bolt" : "tv",
-              emphasized: /sport/i.test(g.name),
-            })
-          )
-          .join("")}
+        ${q && channelResults.length
+          ? channelResults
+              .map((ch) =>
+                iptvTileHtml({
+                  id: `ch:${ch.url}`,
+                  title: ch.name,
+                  subtitle: iptvGroupLabel(lang, ch.group),
+                  logo: ch.logo,
+                  icon: "tv",
+                  live: true,
+                  url: ch.url,
+                })
+              )
+              .join("")
+          : groups
+              .map((g) =>
+                iptvTileHtml({
+                  id: `grp:${g.name}`,
+                  title: iptvGroupLabel(lang, g.name),
+                  subtitle: `${g.count} ${t(lang, "iptvChannels")}`,
+                  icon: /sport/i.test(g.name) ? "bolt" : "tv",
+                  emphasized: /sport/i.test(g.name),
+                })
+              )
+              .join("")}
       </div>`;
   }
 
@@ -698,6 +757,10 @@ function renderIptv() {
       input.setSelectionRange(len, len);
     }
   });
+  root.querySelector("#iptv-autoskip")?.addEventListener("click", () => {
+    state.prefs = store.save({ autoSkip: state.prefs.autoSkip === false });
+    renderIptv();
+  });
   root.querySelector("#iptv-back")?.addEventListener("click", () => {
     state.iptv.view = "groups";
     state.iptv.group = null;
@@ -706,6 +769,12 @@ function renderIptv() {
   });
   root.querySelector("#iptv-more")?.addEventListener("click", () => {
     state.iptv.page += 1;
+    renderIptv();
+  });
+  root.querySelector('[data-tile-id="iptv-mena"]')?.addEventListener("click", () => {
+    state.iptv.view = "channels";
+    state.iptv.group = "__mena__";
+    state.iptv.page = 0;
     renderIptv();
   });
   root.querySelector('[data-tile-id="iptv-all"]')?.addEventListener("click", () => {
@@ -726,10 +795,17 @@ function renderIptv() {
       }
       if (id.startsWith("ch:")) {
         const url = id.slice(3);
-        const allMode = state.iptv.group === "__all__";
-        const list = allMode
-          ? data.channels || []
-          : data.groups.find((g) => g.name === state.iptv.group)?.channels || [];
+        const inChannelsView = state.iptv.view === "channels" && state.iptv.group;
+        const allMode = inChannelsView && state.iptv.group === "__all__";
+        const menaMode = inChannelsView && state.iptv.group === "__mena__";
+        const list = !inChannelsView
+          ? channelResults
+          : allMode
+            ? data.channels || []
+            : menaMode
+              ? (data.channels || []).filter(isMenaChannel)
+              : data.groups.find((g) => g.name === state.iptv.group)?.channels ||
+                [];
         const index = list.findIndex((c) => c.url === url);
         const ch = index >= 0 ? list[index] : list.find((c) => c.url === url);
         const playlist = list.map((c) => ({
@@ -954,7 +1030,7 @@ async function registerSW() {
   if (!("serviceWorker" in navigator)) return;
   try {
     await Promise.race([
-      navigator.serviceWorker.register("./sw.js?v=53"),
+      navigator.serviceWorker.register("./sw.js?v=81"),
       new Promise((r) => setTimeout(r, 2500)),
     ]);
   } catch (_) {}

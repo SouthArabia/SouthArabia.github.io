@@ -4,7 +4,7 @@
     /syria-player|shootsync|albaplayer|beinmax|thehlive|kora-sami|splplayer|kore10|worldchampion/i;
 
   const AD_SRC_RE =
-    /acscdn\.com|aclib\.js|baillieumbered|doubleclick|googlesyndication|pagead|popads|propeller|exoclick|trafficjunky|juicyads|adsterra|mgid|revcontent|adservice|adsystem|popunder|clickunder|ad-delivery|adserver|\/ads\/|adsbygoogle|histats|statcounter|yandex\.ru\/ads|mc\.yandex|monetag|pavanesbedizen|clickadu|popcash|ad-maven|adnxs|rubiconproject|pubmatic|openx|taboola|outbrain/i;
+    /acscdn\.com|aclib\.js|baillieumbered|doubleclick|googlesyndication|pagead|popads|propeller|exoclick|trafficjunky|juicyads|adsterra|mgid|revcontent|adservice|adsystem|popunder|clickunder|ad-delivery|adserver|\/ads\/|adsbygoogle|histats|statcounter|yandex\.ru\/ads|mc\.yandex|monetag|pavanesbedizen|clickadu|popcash|ad-maven|adnxs|rubiconproject|pubmatic|openx|taboola|outbrain|llvpn|guruvpnapp/i;
 
   function unwrapDocumentWrite(html) {
     const m = String(html || "").match(
@@ -77,7 +77,7 @@
 (function(){
   if(window.__shaibEasyListRuntime)return;window.__shaibEasyListRuntime=true;
   var allow=/syria-player|shootsync|albaplayer|beinmax|kora-sami|splplayer|kore10|worldchampion|jwplayer|jwplatform|jwpcdn|cloudflare|cloudfront|akamai|fastly|googleapis|gstatic|hlsjs|videojs|plyr|clappr|jsdelivr|amazonaws|s3\\.|m3u8/i;
-  var adRe=/acscdn|aclib|baillieumbered|doubleclick|googlesyndication|pagead|popads|propeller|exoclick|trafficjunky|juicyads|adsterra|adservice|adsystem|\\/pagead\\/|adsbygoogle|popunder|clickunder|monetag|pavanesbedizen|clickadu|popcash|ad-maven|adnxs/i;
+  var adRe=/acscdn|aclib|baillieumbered|doubleclick|googlesyndication|pagead|popads|propeller|exoclick|trafficjunky|juicyads|adsterra|adservice|adsystem|\\/pagead\\/|adsbygoogle|popunder|clickunder|monetag|pavanesbedizen|clickadu|popcash|ad-maven|adnxs|llvpn|guruvpnapp/i;
   function bad(u){
     u=String(u||'');
     if(!u||u.indexOf('blob:')===0||u.indexOf('data:')===0) return false;
@@ -92,6 +92,18 @@
   try{
     var _f=window.fetch;
     window.fetch=function(input,init){ var u=typeof input==='string'?input:(input&&input.url)||''; if(bad(u)) return Promise.reject(new TypeError('blocked')); return _f.apply(this,arguments); };
+  }catch(e){}
+  // Ad tags often build <script src="..."> at runtime (createElement + appendChild)
+  // rather than via fetch/XHR — guard the src setter so it never loads.
+  try{
+    var _srcDesc=Object.getOwnPropertyDescriptor(HTMLScriptElement.prototype,'src')||Object.getOwnPropertyDescriptor(Element.prototype,'src');
+    if(_srcDesc&&_srcDesc.set){
+      Object.defineProperty(HTMLScriptElement.prototype,'src',{
+        configurable:true,
+        get:function(){return _srcDesc.get.call(this);},
+        set:function(v){ if(bad(v)){ try{this.remove();}catch(e){} return; } return _srcDesc.set.call(this,v); }
+      });
+    }
   }catch(e){}
   function scrub(){
     try{
@@ -136,7 +148,7 @@ iframe[src*="monetag"],iframe[src*="clickadu"],iframe[src*="popcash"]{
 (function(){
   if(window.__shaibPlayerShield)return;window.__shaibPlayerShield=true;
   var PLAYER_OK=/kora-sami|kore10|syria-player|shootsync|albaplayer|jsdelivr|amazonaws|cloudfront|clappr|jwplayer|gstatic|googleapis|m3u8|blob:|data:/i;
-  var AD_HREF=/guruvpnapp|guru\\s*vpn|fifa-wc-2026|acscdn|baillieumbered|doubleclick|popunder|clickunder|exoclick|propeller|monetag|pavanesbedizen|clickadu|popcash|ad-maven|juicyads|trafficjunky|adnxs|taboola|outbrain|sub_id=/i;
+  var AD_HREF=/guruvpnapp|guru\\s*vpn|llvpn|fifa-wc-2026|acscdn|baillieumbered|doubleclick|popunder|clickunder|exoclick|propeller|monetag|pavanesbedizen|clickadu|popcash|ad-maven|juicyads|trafficjunky|adnxs|taboola|outbrain|sub_id=/i;
   function badUrl(u){
     u=String(u||'');
     if(!u||u.charAt(0)==='#'||u.indexOf('javascript:')===0||u.indexOf('blob:')===0||u.indexOf('data:')===0) return false;
@@ -387,7 +399,12 @@ iframe[src*="monetag"],iframe[src*="clickadu"],iframe[src*="popcash"]{
         if(window.player&&typeof window.player.play==='function') window.player.play();
       }catch(e){}
       try{
-        if(window.clappr&&window.clappr.player&&typeof window.clappr.player.play==='function') window.clappr.player.play();
+        // soccer_live_player (kora-sami) exposes the Clappr instance as window.clapprPlayer
+        var cp=window.clapprPlayer||(window.clappr&&window.clappr.player);
+        if(cp){
+          if(typeof cp.mute==='function') cp.mute();
+          if(typeof cp.play==='function') cp.play();
+        }
       }catch(e){}
       try{
         if(window.jwplayer){

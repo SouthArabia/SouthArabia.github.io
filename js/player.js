@@ -185,11 +185,16 @@ function siteInjectBundle(extra = "") {
  * @param {object} opts
  */
 export function createPlayerController(opts) {
-  const { body, titleEl, destroyHls, setHls, t } = opts;
+  const { body, titleEl, destroyHls, setHls, t, isAutoSkipEnabled = () => true } = opts;
   let streamListener = null;
   let currentIframe = null;
   /** @type {{ items: { kind: string, title: string, url: string }[], index: number } | null} */
   let playlist = null;
+  /** Auto-skip: watches the live video for a "playing" signal within a timeout. */
+  let autoSkipTimer = null;
+  let autoSkipCleanup = null;
+  let autoSkipFails = 0;
+  const AUTO_SKIP_TIMEOUT_MS = 10000;
 
   const prevBtn = () => document.getElementById("player-prev");
   const nextBtn = () => document.getElementById("player-next");
@@ -255,6 +260,7 @@ export function createPlayerController(opts) {
   }
 
   function clear() {
+    clearAutoSkipWatch();
     destroyHls();
     if (streamListener) {
       window.removeEventListener("message", streamListener);
@@ -322,6 +328,55 @@ export function createPlayerController(opts) {
     } catch (_) {}
   }
 
+  function clearAutoSkipWatch() {
+    if (autoSkipTimer) {
+      clearTimeout(autoSkipTimer);
+      autoSkipTimer = null;
+    }
+    if (autoSkipCleanup) {
+      autoSkipCleanup();
+      autoSkipCleanup = null;
+    }
+  }
+
+  /** Advance to the next channel; stops once the whole list has been tried. */
+  function triggerAutoSkip() {
+    clearAutoSkipWatch();
+    if (!isAutoSkipEnabled() || !playlist?.items?.length || playlist.items.length < 2) {
+      return;
+    }
+    autoSkipFails += 1;
+    if (autoSkipFails >= playlist.items.length) {
+      autoSkipFails = 0;
+      return;
+    }
+    goPlaylist(1);
+  }
+
+  /** Arms a "playing" watchdog for a live stream so dead channels get skipped. */
+  function armAutoSkip(video) {
+    clearAutoSkipWatch();
+    if (!isAutoSkipEnabled() || !playlist?.items?.length || playlist.items.length < 2) {
+      return;
+    }
+    let started = false;
+    const onPlaying = () => {
+      started = true;
+      autoSkipFails = 0;
+      clearAutoSkipWatch();
+    };
+    const onError = () => triggerAutoSkip();
+    video.addEventListener("playing", onPlaying);
+    video.addEventListener("error", onError);
+    autoSkipCleanup = () => {
+      video.removeEventListener("playing", onPlaying);
+      video.removeEventListener("error", onError);
+    };
+    autoSkipTimer = setTimeout(() => {
+      if (!started) triggerAutoSkip();
+    }, AUTO_SKIP_TIMEOUT_MS);
+  }
+
   function playHls(title, url) {
     titleEl.textContent = title;
     clear();
@@ -345,6 +400,7 @@ export function createPlayerController(opts) {
     wrap.appendChild(stage);
     body.appendChild(wrap);
     updatePlaylistNav();
+    armAutoSkip(video);
 
     if (video.canPlayType("application/vnd.apple.mpegurl")) {
       video.src = url;
@@ -362,6 +418,9 @@ export function createPlayerController(opts) {
       hls.attachMedia(video);
       hls.on(window.Hls.Events.MANIFEST_PARSED, () => tryAutoPlay(video));
       hls.on(window.Hls.Events.MEDIA_ATTACHED, () => tryAutoPlay(video));
+      hls.on(window.Hls.Events.ERROR, (_evt, data) => {
+        if (data?.fatal) triggerAutoSkip();
+      });
       tryAutoPlay(video);
       return;
     }
@@ -460,11 +519,11 @@ export function createPlayerController(opts) {
     ensurePlayerFilters().catch(() => {});
 
     if (isDirectPlayerUrl(url)) {
-      // Ch1 (kora-sami): on iOS/Android use SW proxy autoplay inject; desktop stays direct
+      // Ch1: proxy on every platform so autoplay and popup protection are consistent.
       if (/kora-sami|splplayer/i.test(url)) {
-        if (isMobileDevice() && (await ensureServiceWorkerReady())) {
+        if (await ensureServiceWorkerReady()) {
           const mounted = mountProxiedWithDirectFallback(url);
-          mounted.mode = "proxied-ch1-mobile";
+          mounted.mode = "proxied-ch1";
           return mounted;
         }
         const frame = configureFrame(
@@ -605,6 +664,15 @@ export function createPlayerController(opts) {
     wrap.appendChild(stage);
     body.innerHTML = "";
     body.appendChild(wrap);
+
+    // Fox Sport must load directly: its YouTube player detects proxy/shielded frames.
+    if (tile.fox) {
+      const frame = configureFrame(mountLockedIframe(tile.url, { sandbox: false }));
+      stage.appendChild(frame);
+      currentIframe = frame;
+      status.textContent = "Fox Sport · direct player";
+      return;
+    }
 
     // Channel 3 / non-player sites: EasyList + continuous scan, no popups/redirects
     if (!isDirectPlayerUrl(tile.url) || isChannel3Site(tile.url)) {
@@ -874,6 +942,7 @@ export function createPlayerController(opts) {
         items: tile.playlist,
         index: Math.max(0, Math.min(tile.playlistIndex ?? 0, tile.playlist.length - 1)),
       };
+      autoSkipFails = 0;
     } else if (!tile.keepPlaylist) {
       playlist = null;
     }

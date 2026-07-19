@@ -3,6 +3,7 @@ export const store = {
     lang: "ar",
     theme: "classic",
     tab: "matches",
+    autoSkip: true,
   },
 
   load() {
