@@ -346,6 +346,16 @@ function closePlayer() {
   if (next) next.hidden = true;
 }
 
+function paintAutoSkipToggle() {
+  const btn = $("#player-autoskip");
+  if (!btn) return;
+  const on = state.prefs.autoSkip !== false;
+  btn.classList.toggle("on", on);
+  btn.classList.toggle("off", !on);
+  btn.setAttribute("aria-pressed", String(on));
+  btn.textContent = t(state.prefs.lang, on ? "autoSkipOn" : "autoSkipOff");
+}
+
 function setTheme(theme) {
   document.documentElement.dataset.theme = theme === "royale" ? "royale" : "classic";
 }
@@ -418,6 +428,7 @@ function paintChrome() {
   const lang = state.prefs.lang;
   applyDir(lang);
   setTheme(state.prefs.theme);
+  paintAutoSkipToggle();
 
   $("#brand-sub").textContent = t(lang, "brandSub");
   const refreshBtn = $("#refresh-btn");
@@ -605,7 +616,6 @@ function renderIptv() {
   }
 
   const q = state.iptv.query.trim().toLowerCase();
-  const autoSkipOn = state.prefs.autoSkip !== false;
   const isGroupsView = state.iptv.view !== "channels" || !state.iptv.group;
   const total = data.channels?.length || 0;
   const menaCount = (data.channels || []).filter(isMenaChannel).length;
@@ -613,9 +623,6 @@ function renderIptv() {
   let html = `
     <div class="iptv-toolbar">
       <input id="iptv-search" type="search" enterkeyhint="search" placeholder="${t(lang, "iptvSearch")}" value="${state.iptv.query.replace(/"/g, "&quot;")}" />
-      <button type="button" id="iptv-autoskip" class="btn ghost autoskip-toggle ${autoSkipOn ? "on" : "off"}" aria-pressed="${autoSkipOn}">
-        ${t(lang, autoSkipOn ? "autoSkipOn" : "autoSkipOff")}
-      </button>
     </div>`;
 
   if (isGroupsView) {
@@ -756,10 +763,6 @@ function renderIptv() {
       const len = input.value.length;
       input.setSelectionRange(len, len);
     }
-  });
-  root.querySelector("#iptv-autoskip")?.addEventListener("click", () => {
-    state.prefs = store.save({ autoSkip: state.prefs.autoSkip === false });
-    renderIptv();
   });
   root.querySelector("#iptv-back")?.addEventListener("click", () => {
     state.iptv.view = "groups";
@@ -979,6 +982,10 @@ function bind() {
 
   $("#refresh-btn")?.addEventListener("click", () => hardRefresh());
   $("#player-close")?.addEventListener("click", closePlayer);
+  $("#player-autoskip")?.addEventListener("click", () => {
+    state.prefs = store.save({ autoSkip: state.prefs.autoSkip === false });
+    paintAutoSkipToggle();
+  });
 
   $("#lang-ar")?.addEventListener("click", () => {
     state.prefs = store.save({ lang: "ar" });
@@ -1030,7 +1037,7 @@ async function registerSW() {
   if (!("serviceWorker" in navigator)) return;
   try {
     await Promise.race([
-      navigator.serviceWorker.register("./sw.js?v=81"),
+      navigator.serviceWorker.register("./sw.js?v=82"),
       new Promise((r) => setTimeout(r, 2500)),
     ]);
   } catch (_) {}

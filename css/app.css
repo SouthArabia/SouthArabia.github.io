@@ -794,6 +794,13 @@ html[dir="rtl"] .team.home { text-align: end; align-items: end; }
   opacity: 0.35;
 }
 
+.player-bar .autoskip-toggle {
+  flex: 0 0 auto;
+  padding: 7px 9px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
 .player-body {
   flex: 1;
   min-height: 0;
@@ -1068,13 +1075,6 @@ html[dir="rtl"] .team.home { text-align: end; align-items: end; }
   padding: 12px 14px;
   font: inherit;
   font-size: 0.95rem;
-}
-
-.autoskip-toggle {
-  flex: 0 0 auto;
-  padding: 10px 14px;
-  font-size: 0.85rem;
-  white-space: nowrap;
 }
 
 .autoskip-toggle.on {
