@@ -1,0 +1,14 @@
+---
+description: Always commit and push ShaibSport PWA changes to GitHub
+alwaysApply: true
+---
+
+# ShaibSport PWA — always push to GitHub
+
+When working on the PWA at `~/Desktop/ShaipSportPWA` (repo `SouthArabia/ShaibSport`):
+
+1. After making code/content changes, **commit and push to `origin/main`** without waiting to be asked.
+2. Use `gh` as SouthArabia (or whatever account owns the repo). Remote: `https://github.com/SouthArabia/ShaibSport.git`
+3. After push, trigger a Pages rebuild: `gh api -X POST repos/SouthArabia/ShaibSport/pages/builds`
+4. Bump the service worker `CACHE` version in `sw.js` when shipping asset/JS changes so clients pick up updates.
+5. Do not skip push for “small” fixes — keep GitHub Pages in sync with local work.

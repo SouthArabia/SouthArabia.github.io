@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0B0B0F" />
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex, nocache, notranslate" />
+  <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex, nocache" />
+  <meta name="googlebot-news" content="noindex, nofollow" />
+  <meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet" />
+  <!-- strict-origin-when-cross-origin: stream players reject no-referrer ("إخفاء المصدر") -->
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Shaib Sport" />
+  <meta name="description" content="" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
+  <link rel="icon" href="./icons/icon-192.png" />
+  <link rel="stylesheet" href="./css/app.css" />
+  <title>Shaib Sport</title>
+  <script src="./vendor/hls.min.js" defer></script>
+  <!-- Instant boot: never depend on modules to leave splash -->
+  <script>
+    (function () {
+      var KEY = "shaib_pwa_auth_v1";
+      function loggedIn() {
+        try {
+          if (sessionStorage.getItem(KEY) === "1") return true;
+        } catch (e) {}
+        try {
+          if (localStorage.getItem(KEY) === "1") return true;
+        } catch (e) {}
+        return false;
+      }
+      function hideSplash() {
+        var s = document.getElementById("splash");
+        if (!s) return;
+        s.hidden = true;
+        s.classList.add("hide");
+        s.style.cssText = "display:none!important;pointer-events:none!important";
+        try {
+          s.remove();
+        } catch (e) {}
+      }
+      function showLogin() {
+        var gate = document.getElementById("login-gate");
+        var shell = document.getElementById("app-shell");
+        if (shell) {
+          shell.hidden = true;
+          shell.style.display = "none";
+        }
+        if (gate) {
+          gate.hidden = false;
+          gate.style.display = "";
+          gate.style.pointerEvents = "";
+        }
+      }
+      function showApp() {
+        var gate = document.getElementById("login-gate");
+        var shell = document.getElementById("app-shell");
+        if (gate) {
+          gate.hidden = true;
+          gate.style.display = "none";
+          gate.style.pointerEvents = "none";
+        }
+        if (shell) {
+          shell.hidden = false;
+          shell.style.display = "";
+          shell.style.pointerEvents = "";
+        }
+      }
+      function bootUI() {
+        hideSplash();
+        if (loggedIn()) showApp();
+        else showLogin();
+      }
+      // Run as soon as body nodes exist
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", bootUI);
+      } else {
+        bootUI();
+      }
+      // Belts and suspenders
+      setTimeout(bootUI, 0);
+      setTimeout(bootUI, 300);
+      setTimeout(bootUI, 1000);
+      window.__shaibBootUI = bootUI;
+      window.__shaibShowApp = showApp;
+      window.__shaibHideSplash = hideSplash;
+    })();
+  </script>
+</head>
+<body>
+  <div class="splash" id="splash">
+    <img src="./assets/brand/splash.png" alt="Shaib Sport" />
+  </div>
+
+  <div class="login-gate" id="login-gate" hidden>
+    <form class="login-card" id="login-form" autocomplete="on">
+      <img class="login-logo" src="./assets/brand/mainicon.png" alt="" width="72" height="72" />
+      <h1>Shaib Sport</h1>
+      <p id="login-sub">تسجيل الدخول للمتابعة</p>
+      <label>
+        <span id="lbl-user">اسم المستخدم</span>
+        <input id="login-user" name="username" type="text" required dir="auto" autocomplete="username" />
+      </label>
+      <label>
+        <span id="lbl-pass">كلمة المرور</span>
+        <input id="login-pass" name="password" type="password" required dir="auto" autocomplete="current-password" />
+      </label>
+      <p class="login-error" id="login-error" hidden></p>
+      <button class="btn" type="submit" id="login-submit">دخول</button>
+    </form>
+  </div>
+
+  <div id="app-shell" hidden>
+  <header class="app-header">
+    <div class="brand-row">
+      <div class="brand">
+        <img class="brand-mark" src="./assets/brand/mainicon.png" alt="" width="40" height="40" />
+        <div class="brand-text">
+          <strong>Shaib Sport</strong>
+          <span id="brand-sub">العالم بين يديك</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn" id="refresh-btn" type="button" aria-label="تحديث كامل" title="تحديث كامل">↻</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="install-banner" id="install-banner" hidden>
+    <div>
+      <p id="install-title"><strong>ثبّت التطبيق</strong></p>
+      <p id="install-body">أضفه للشاشة الرئيسية على آيفون من زر المشاركة.</p>
+    </div>
+    <div style="display:flex;gap:8px;flex-shrink:0">
+      <button class="btn" id="install-btn" type="button">كيف؟</button>
+      <button class="btn ghost" id="install-dismiss" type="button">لاحقاً</button>
+    </div>
+  </div>
+
+  <div class="install-sheet" id="install-sheet" hidden>
+    <div class="install-sheet-backdrop" id="install-sheet-backdrop"></div>
+    <div class="install-sheet-card" role="dialog" aria-modal="true" aria-labelledby="install-sheet-title">
+      <h2 id="install-sheet-title">تثبيت على آيفون</h2>
+      <p id="install-sheet-hint" class="install-sheet-hint"></p>
+      <ol id="install-sheet-steps" class="install-sheet-steps"></ol>
+      <button class="btn" id="install-sheet-close" type="button">حسناً</button>
+    </div>
+  </div>
+
+  <main class="page" data-page="matches">
+    <div class="section-head">
+      <div>
+        <h1 id="matches-heading">شاهد الان</h1>
+        <p data-i18n="matchesSub">القنوات والمواقع والبث</p>
+      </div>
+    </div>
+    <div id="canvas-root"></div>
+  </main>
+
+  <main class="page" data-page="today" hidden>
+    <div class="section-head">
+      <div>
+        <h1 data-i18n="todayTitle">اليوم</h1>
+        <p data-i18n="todaySub">مباريات اليوم والدولية</p>
+      </div>
+    </div>
+    <div id="today-list"></div>
+  </main>
+
+  <main class="page" data-page="iptv" hidden>
+    <div class="section-head">
+      <div>
+        <h1 data-i18n="iptvTitle">تلفاز مباشر</h1>
+        <p data-i18n="iptvSub">قنوات البث المباشر</p>
+      </div>
+    </div>
+    <div id="iptv-root"></div>
+  </main>
+
+  <main class="page" data-page="international" hidden>
+    <div class="section-head">
+      <div>
+        <h1 data-i18n="intlTitle">كأس العالم</h1>
+        <p data-i18n="intlSub">الفرق المتأهلة والمباريات</p>
+      </div>
+    </div>
+
+    <h2 id="teams-label" style="font-family:var(--font-display);font-size:1.05rem;margin:0 0 8px">الفرق</h2>
+    <div class="knockout-grid" id="knockout-grid"></div>
+
+    <h2 style="font-family:var(--font-display);font-size:1.05rem;margin:18px 0 8px">Fixtures</h2>
+    <div id="intl-list"></div>
+  </main>
+
+  <main class="page" data-page="settings" hidden>
+    <div class="section-head">
+      <div>
+        <h1 data-i18n="settingsTitle">الإعدادات</h1>
+        <p data-i18n="settingsSub">اللغة والمظهر وإخلاء المسؤولية</p>
+      </div>
+    </div>
+
+    <div class="settings-card">
+      <div class="settings-row" id="lbl-language">
+        اللغة
+        <div class="seg" role="group">
+          <button type="button" id="lang-ar" class="active">عربي</button>
+          <button type="button" id="lang-en">EN</button>
+        </div>
+      </div>
+      <div class="settings-row" id="lbl-theme">
+        المظهر
+        <div class="seg" role="group">
+          <button type="button" id="theme-classic" class="active">Classic</button>
+          <button type="button" id="theme-royale">Royale</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-card" id="install-settings-card">
+      <div class="settings-row install-settings-row">
+        <div>
+          <label id="lbl-install">ثبّت التطبيق</label>
+          <small id="install-settings-sub">أضفه إلى الشاشة الرئيسية على آيفون</small>
+        </div>
+        <button class="btn" type="button" id="btn-install-settings">تثبيت</button>
+      </div>
+    </div>
+
+    <div class="settings-card">
+      <div class="settings-row">
+        <div>
+          <label id="lbl-contact">تواصل</label>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a class="btn ghost" id="btn-wa" href="https://wa.me/15594035364" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+      </div>
+      <div class="settings-row">
+        <label id="lbl-logout">تسجيل الخروج</label>
+        <button class="btn ghost" type="button" id="btn-logout">خروج</button>
+      </div>
+    </div>
+
+    <div class="settings-card">
+      <details class="settings-collapse" id="privacy-collapse">
+        <summary class="settings-row settings-collapse-summary">
+          <label id="lbl-privacy">إخلاء المسؤولية</label>
+        </summary>
+        <div class="legal" id="privacy-body"></div>
+      </details>
+    </div>
+
+    <div class="settings-card">
+      <div class="settings-row"><label id="lbl-about">عن التطبيق</label></div>
+      <div class="legal" id="about-body"></div>
+    </div>
+  </main>
+
+  <div class="player-sheet" id="player-sheet" hidden>
+    <div class="player-bar">
+      <button class="icon-btn" id="player-close" type="button" aria-label="Close">✕</button>
+      <strong id="player-title">Player</strong>
+      <button class="icon-btn player-nav" id="player-prev" type="button" hidden aria-label="Previous">‹</button>
+      <button class="icon-btn player-nav" id="player-next" type="button" hidden aria-label="Next">›</button>
+    </div>
+    <div class="player-body" id="player-body"></div>
+    <div class="player-dock" id="player-dock" hidden>
+      <button type="button" class="player-dock-btn" id="dock-prev">‹ السابق</button>
+      <button type="button" class="player-dock-btn player-dock-exit" id="dock-exit">إغلاق</button>
+      <button type="button" class="player-dock-btn" id="dock-next">التالي ›</button>
+      <div class="player-dock-meta" id="dock-meta" hidden></div>
+    </div>
+  </div>
+
+  <nav class="tabbar" aria-label="Tabs">
+    <button type="button" data-tab="today">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>
+      <span>Today</span>
+    </button>
+    <button type="button" data-tab="international">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h6v5H4zM14 6h6v5h-6zM9 14h6v5H9z"/><path d="M7 11v3h10v-3"/></svg>
+      <span>World Cup</span>
+    </button>
+    <button type="button" data-tab="matches" class="active tab-watch" aria-label="شاهد الان">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      <span>شاهد الان</span>
+    </button>
+    <button type="button" data-tab="iptv">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v10H4z"/><path d="m8 19 4-4 4 4"/><path d="M12 15v4"/></svg>
+      <span>تلفاز مباشر</span>
+    </button>
+    <button type="button" data-tab="settings">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2.2 2.2M16.8 16.8 19 19M19 5l-2.2 2.2M5 19l2.2-2.2"/></svg>
+      <span>Settings</span>
+    </button>
+  </nav>
+  </div><!-- /app-shell -->
+
+  <script>
+    // Force iOS Safari off stale service workers / caches
+    (function () {
+      if (!("serviceWorker" in navigator)) return;
+      var SW_URL = "./sw.js?v=53";
+      navigator.serviceWorker.getRegistrations().then(function (regs) {
+        return Promise.all(
+          regs.map(function (r) {
+            return r.unregister();
+          })
+        );
+      }).then(function () {
+        if (window.caches && caches.keys) {
+          return caches.keys().then(function (keys) {
+            return Promise.all(keys.map(function (k) { return caches.delete(k); }));
+          });
+        }
+      }).then(function () {
+        return navigator.serviceWorker.register(SW_URL);
+      }).catch(function () {});
+    })();
+  </script>
+  <script type="module" src="./js/app.js?v=53"></script>
+  <script>
+    (function () {
+      // Lightweight tab switching fallback (works even if modules are busy)
+      document.addEventListener(
+        "click",
+        function (e) {
+          var btn = e.target && e.target.closest && e.target.closest(".tabbar button[data-tab]");
+          if (!btn) return;
+          var tab = btn.getAttribute("data-tab");
+          if (!tab) return;
+          var buttons = document.querySelectorAll(".tabbar button[data-tab]");
+          for (var i = 0; i < buttons.length; i++) {
+            buttons[i].classList.toggle("active", buttons[i].getAttribute("data-tab") === tab);
+          }
+          var pages = document.querySelectorAll("main.page[data-page]");
+          for (var j = 0; j < pages.length; j++) {
+            pages[j].hidden = pages[j].getAttribute("data-page") !== tab;
+          }
+        },
+        true
+      );
+
+      var KEY = "shaib_pwa_auth_v1";
+      function norm(s) {
+        return String(s || "")
+          .trim()
+          .toLowerCase()
+          .replace(/\s+/g, "");
+      }
+      function save() {
+        try {
+          sessionStorage.setItem(KEY, "1");
+        } catch (e) {}
+        try {
+          localStorage.setItem(KEY, "1");
+        } catch (e) {}
+      }
+      function doLogin(e) {
+        if (e) e.preventDefault();
+        var u = norm(document.getElementById("login-user") && document.getElementById("login-user").value);
+        var p = norm(document.getElementById("login-pass") && document.getElementById("login-pass").value);
+        var err = document.getElementById("login-error");
+        if (u === "saber" && p === "7777") {
+          save();
+          if (err) err.hidden = true;
+          if (window.__shaibHideSplash) window.__shaibHideSplash();
+          if (window.__shaibShowApp) window.__shaibShowApp();
+          try {
+            window.dispatchEvent(new CustomEvent("shaib-login"));
+          } catch (err2) {}
+          return false;
+        }
+        if (err) {
+          err.textContent = "Incorrect username or password";
+          err.hidden = false;
+        }
+        return false;
+      }
+      var form = document.getElementById("login-form");
+      var btn = document.getElementById("login-submit");
+      if (form) form.addEventListener("submit", doLogin);
+      if (btn) btn.addEventListener("click", doLogin);
+    })();
+  </script>
+</body>
+</html>

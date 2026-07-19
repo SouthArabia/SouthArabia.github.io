@@ -1,0 +1,94 @@
+{
+  "version": 2,
+  "lastUpdated": "2026-06-30",
+  "channels": {
+    "ch1": {
+      "blockDomains": ["subduepaler.cyou"],
+      "hideSelectors": [
+        "section.wrapper[data-area='area3']",
+        ".wrapper[data-area='area3']",
+        ".captcha",
+        "[data-area='area3']",
+        "img[src*='subduepaler']",
+        "a[href*='subduepaler']",
+        ".mask[data-onopen='0']",
+        "section.wrapper[data-area='area3'] .buttons__wrapper"
+      ],
+      "removeSelectors": [
+        "section.wrapper[data-area='area3']",
+        ".wrapper[data-area='area3']",
+        ".captcha[data-area='area1']",
+        "img[src*='subduepaler']",
+        "a[href*='subduepaler']",
+        "[data-area='area3']"
+      ],
+      "notes": "Block subduepaler.cyou fake VPN/CAPTCHA overlay"
+    },
+    "ch2": {
+      "blockDomains": ["subduepaler.cyou"],
+      "hideSelectors": [
+        "section.wrapper[data-area='area3']",
+        ".wrapper[data-area='area3']",
+        ".captcha",
+        "[data-area='area3']",
+        "img[src*='subduepaler']",
+        "a[href*='subduepaler']",
+        ".mask[data-onopen='0']",
+        "section.wrapper[data-area='area3'] .buttons__wrapper"
+      ],
+      "removeSelectors": [
+        "section.wrapper[data-area='area3']",
+        ".wrapper[data-area='area3']",
+        ".captcha[data-area='area1']",
+        "img[src*='subduepaler']",
+        "a[href*='subduepaler']",
+        "[data-area='area3']"
+      ],
+      "notes": "Block subduepaler.cyou fake VPN/CAPTCHA overlay"
+    },
+    "ch3": {
+      "blockDomains": ["subduepaler.cyou"],
+      "hideSelectors": [
+        "section.wrapper[data-area='area3']",
+        ".wrapper[data-area='area3']",
+        ".captcha",
+        "[data-area='area3']",
+        "img[src*='subduepaler']",
+        "a[href*='subduepaler']",
+        ".mask[data-onopen='0']",
+        "section.wrapper[data-area='area3'] .buttons__wrapper"
+      ],
+      "removeSelectors": [
+        "section.wrapper[data-area='area3']",
+        ".wrapper[data-area='area3']",
+        ".captcha[data-area='area1']",
+        "img[src*='subduepaler']",
+        "a[href*='subduepaler']",
+        "[data-area='area3']"
+      ],
+      "notes": "Block subduepaler.cyou fake VPN/CAPTCHA overlay"
+    },
+    "ch4": {
+      "blockDomains": ["subduepaler.cyou"],
+      "hideSelectors": [
+        "section.wrapper[data-area='area3']",
+        ".wrapper[data-area='area3']",
+        ".captcha",
+        "[data-area='area3']",
+        "img[src*='subduepaler']",
+        "a[href*='subduepaler']",
+        ".mask[data-onopen='0']",
+        "section.wrapper[data-area='area3'] .buttons__wrapper"
+      ],
+      "removeSelectors": [
+        "section.wrapper[data-area='area3']",
+        ".wrapper[data-area='area3']",
+        ".captcha[data-area='area1']",
+        "img[src*='subduepaler']",
+        "a[href*='subduepaler']",
+        "[data-area='area3']"
+      ],
+      "notes": "Block subduepaler.cyou fake VPN/CAPTCHA overlay"
+    }
+  }
+}

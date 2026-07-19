@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "rules": [
+    {"trigger":{"url-filter":"googlesyndication\\.com"},"action":{"type":"block"}},
+    {"trigger":{"url-filter":"doubleclick\\.net"},"action":{"type":"block"}},
+    {"trigger":{"url-filter":"adnxs\\.com"},"action":{"type":"block"}},
+    {"trigger":{"url-filter":"rubiconproject\\.com"},"action":{"type":"block"}},
+    {"trigger":{"url-filter":"taboola\\.com"},"action":{"type":"block"}},
+    {"trigger":{"url-filter":"outbrain\\.com"},"action":{"type":"block"}},
+    {"trigger":{"url-filter":"zxhtytghbkgvl\\.website"},"action":{"type":"block"}},
+    {"trigger":{"url-filter":"adcash\\.com"},"action":{"type":"block"}},
+    {"trigger":{"url-filter":"aclib\\.s3\\.amazonaws\\.com"},"action":{"type":"block"}},
+    {"trigger":{"url-filter":"w1rvyammri"},"action":{"type":"block"}},
+    {"trigger":{"url-filter":"popads\\.net"},"action":{"type":"block"}},
+    {"trigger":{"url-filter":"popcash\\.net"},"action":{"type":"block"}},
+    {"trigger":{"url-filter":"trafficjunky\\.net"},"action":{"type":"block"}},
+    {"trigger":{"url-filter":"exoclick\\.com"},"action":{"type":"block"}},
+    {"trigger":{"url-filter":"juicyads\\.com"},"action":{"type":"block"}},
+    {"trigger":{"url-filter":"ero-advertising\\.com"},"action":{"type":"block"}},
+    {"trigger":{"url-filter":"trafficfactory\\.biz"},"action":{"type":"block"}},
+    {"trigger":{"url-filter":"tubecorporate\\.com"},"action":{"type":"block"}},
+    {"trigger":{"url-filter":"hilltopads\\.net"},"action":{"type":"block"}},
+    {"trigger":{"url-filter":"propellerads\\.com"},"action":{"type":"block"}},
+    {"trigger":{"url-filter":"clickadu\\.com"},"action":{"type":"block"}},
+    {"trigger":{"url-filter":"admaven\\.com"},"action":{"type":"block"}},
+    {"trigger":{"url-filter":"adsterra\\.com"},"action":{"type":"block"}},
+    {"trigger":{"url-filter":"valueclick\\.com"},"action":{"type":"block"}},
+    {"trigger":{"url-filter":"yieldmanager\\.com"},"action":{"type":"block"}}
+  ]
+}

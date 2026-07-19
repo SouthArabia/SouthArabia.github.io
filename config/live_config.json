@@ -1,0 +1,626 @@
+{
+  "version": 10,
+  "settings_enabled": true,
+  "today_enabled": false,
+  "matches_enabled": false,
+  "live_enabled": false,
+  "world_cup_enabled": false,
+  "knockout_enabled": false,
+  "news_enabled": false,
+  "highlights_enabled": false,
+  "fan_center_enabled": false,
+  "predictions_enabled": false,
+  "guide_enabled": false,
+  "fan_journal_enabled": true,
+  "fan_lineup_enabled": true,
+  "fan_training_enabled": true,
+  "fan_trivia_enabled": true,
+  "fan_checklist_enabled": true,
+  "fan_player_tools_enabled": true,
+  "fan_resources_enabled": true,
+  "live_title": "شاهد الان",
+  "live_title_en": "Watch",
+  "today_title_ar": "اليوم",
+  "today_title_en": "Today",
+  "world_cup_title_ar": "دولي",
+  "world_cup_title_en": "International",
+  "knockout_title_ar": "الأدوار",
+  "knockout_title_en": "Bracket",
+  "news_title_ar": "الأخبار",
+  "news_title_en": "News",
+  "highlights_title_ar": "لحظات مهمه",
+  "highlights_title_en": "Highlights",
+  "fan_center_title_ar": "مركز المشجع",
+  "fan_center_title_en": "Fan Center",
+  "more_title_ar": "المزيد",
+  "more_title_en": "More",
+  "fan_journal_title_ar": "فرق",
+  "fan_journal_title_en": "Teams",
+  "fan_lineup_title_ar": "التشكيلة",
+  "fan_lineup_title_en": "Lineup",
+  "fan_training_title_ar": "تدريب",
+  "fan_training_title_en": "Training",
+  "fan_trivia_title_ar": "مسابقة",
+  "fan_trivia_title_en": "Trivia",
+  "fan_checklist_title_ar": "قائمة",
+  "fan_checklist_title_en": "Checklist",
+  "fan_player_tools_title_ar": "أدوات",
+  "fan_player_tools_title_en": "Tools",
+  "fan_resources_title_ar": "مصادر",
+  "fan_resources_title_en": "Resources",
+  "fan_resources_url": "https://www.historyoffootball.net/",
+  "donate_enabled": false,
+  "donate_url": "https://www.paypal.com/donate/?business=37YZESEGYPNXL&no_recurring=0&item_name=%D8%A8%D8%AF%D8%B9%D9%85%D9%83%D9%85+%D9%86%D8%B3%D8%AA%D9%85%D8%B1&currency_code=USD",
+  "south_arabia_enabled": false,
+  "contact_enabled": false,
+  "share_enabled": false,
+  "share_title": "دقس صاحبك ينشر البرنامج",
+  "share_title_en": "Share the App",
+  "share_url": "https://apps.apple.com/us/app/shaibsport/id6782717028",
+  "warta_enabled": false,
+  "warta_title": "عرطة العرطات",
+  "warta_title_en": "Dealzz!",
+  "warta_url": "https://chat.whatsapp.com/DGgtnhmIUJc1wjjI6ggUHy",
+  "dedication_enabled": false,
+  "other_channels_enabled": false,
+  "cache_clear_enabled": false,
+  "privacy_enabled": false,
+  "syca_enabled": false,
+  "disclaimer_enabled": false,
+  "livePlayers": [
+    {
+      "id": "live-aljazeera",
+      "title": "الجزيرة",
+      "subtitle": "قناة الجزيرة الإخبارية",
+      "url": "https://live-hls-web-aja-fa.thehlive.com/AJA/index.m3u8",
+      "enabled": true
+    },
+    {
+      "id": "live-alhadath",
+      "title": "الحدث",
+      "subtitle": "قناة الحدث الإخبارية",
+      "url": "https://av.alarabiya.net/alarabiapublish/alhadath.smil/playlist.m3u8",
+      "enabled": true
+    },
+    {
+      "id": "live-aljazeera-en",
+      "title": "Al Jazeera EN",
+      "subtitle": "Al Jazeera English",
+      "url": "https://live-hls-web-aje-fa.thehlive.com/AJE/index.m3u8",
+      "enabled": true
+    }
+  ],
+  "browserPlayers": [
+    {
+      "id": "browser-1",
+      "title": "قناة 1",
+      "url": "https://m4.kora-sami.com/splplayer/bmax1/",
+      "enabled": true
+    },
+    {
+      "id": "browser-2",
+      "title": "قناة 2",
+      "url": "https://k2.kore10.blog/albaplayer/p-1/?serv=1",
+      "enabled": true
+    },
+    {
+      "id": "browser-3",
+      "title": "قناة 3",
+      "url": "https://worldchampion.fun/welcome-4/",
+      "enabled": true
+    },
+    {
+      "id": "browser-4",
+      "title": "قناة 4",
+      "url": "https://player.syria-player.live/albaplayer/beinmax1/?serv=4",
+      "enabled": true
+    },
+    {
+      "id": "browser-5",
+      "title": "قناة 5",
+      "url": "https://player.syria-player.live/albaplayer/beinmax1/?serv=5",
+      "enabled": true
+    },
+    {
+      "id": "browser-6",
+      "title": "قناة 6",
+      "url": "https://www.majed-koora.com/",
+      "enabled": false,
+      "frozen": true,
+      "notice": "موقف من قبل يوسف"
+    },
+    {
+      "id": "browser-7",
+      "title": "قناة 7",
+      "url": "https://player.syria-player.live/albaplayer/beinmax2/?serv=2",
+      "enabled": true
+    },
+    {
+      "id": "browser-8",
+      "title": "قناة 8",
+      "url": "https://player.syria-player.live/albaplayer/beinmax2/?serv=3",
+      "enabled": true
+    },
+    {
+      "id": "browser-9",
+      "title": "قناة 9",
+      "url": "https://player.syria-player.live/albaplayer/beinmax2/?serv=4",
+      "enabled": true
+    },
+    {
+      "id": "browser-10",
+      "title": "قناة 10",
+      "url": "https://player.syria-player.live/albaplayer/beinmax3/?serv=1",
+      "enabled": true
+    },
+    {
+      "id": "browser-11",
+      "title": "قناة 11",
+      "url": "https://player.syria-player.live/albaplayer/beinmax3/?serv=2",
+      "enabled": true
+    },
+    {
+      "id": "fox-sport",
+      "title": "Fox Sport",
+      "url": "https://www.youtube.com/watch?v=OJlwIdoFz9A",
+      "enabled": true
+    }
+  ],
+  "domainBrowsers": [
+    {
+      "id": "dom-kooraworld",
+      "title": "عالم الكرة",
+      "url": "https://kooraworld.net/",
+      "mode": "mtMask",
+      "enabled": true
+    },
+    {
+      "id": "dom-kooralive",
+      "title": "كورة لايف",
+      "url": "https://livefootballfree.net/",
+      "mode": "stingPlay",
+      "enabled": true
+    },
+    {
+      "id": "dom-kooora-online",
+      "title": "كورة اونلاين",
+      "url": "https://kooora.world/",
+      "mode": "stingPlay",
+      "enabled": true
+    },
+    {
+      "id": "dom-sport-c",
+      "title": "سبورت سي",
+      "url": "https://sport-c.com/",
+      "mode": "mtMask",
+      "enabled": true
+    },
+    {
+      "id": "dom-koora-mubasher",
+      "title": "كورة مباشر",
+      "url": "https://live-sporthdtv.com/",
+      "mode": "mtMask",
+      "enabled": true
+    },
+    {
+      "id": "dom-syria-ylive",
+      "title": "سوريا يلايف",
+      "url": "https://live-sporthdtv.com/",
+      "mode": "mtMask",
+      "enabled": true
+    },
+    {
+      "id": "dom-janoub-sport",
+      "title": "الجنوب سبورت",
+      "url": "https://laacibsports.com/",
+      "mode": "mtMask",
+      "enabled": true
+    },
+    {
+      "id": "dom-livescore",
+      "title": "لايف سكور",
+      "url": "https://livescore24.tv/",
+      "mode": "mtMask",
+      "enabled": true
+    },
+    {
+      "id": "dom-kora-website",
+      "title": "كورة",
+      "url": "https://kora.website/",
+      "mode": "mtMask",
+      "enabled": true
+    },
+    {
+      "id": "dom-sport-extra",
+      "title": "سبورت اكسترا",
+      "url": "https://sport-extra.net/",
+      "mode": "mtMask",
+      "enabled": true
+    },
+    {
+      "id": "dom-footballkorat",
+      "title": "فوتبول كورات",
+      "url": "https://footballkorat.com/",
+      "mode": "mtMask",
+      "enabled": true
+    },
+    {
+      "id": "dom-koorarm",
+      "title": "كورة آر إم",
+      "url": "https://koorarm.com/",
+      "mode": "mtMask",
+      "enabled": true
+    },
+    {
+      "id": "dom-ahlysports",
+      "title": "أهلي سبورتس",
+      "url": "https://ahlysports.com/",
+      "mode": "mtMask",
+      "enabled": true
+    },
+    {
+      "id": "dom-kooray-live",
+      "title": "كورة واي لايف",
+      "url": "https://kooray-live.tv/",
+      "mode": "mtMask",
+      "enabled": true
+    },
+    {
+      "id": "dom-koorapress",
+      "title": "كورة بريس",
+      "url": "https://koorapress.co/",
+      "mode": "mtMask",
+      "enabled": true
+    },
+    {
+      "id": "dom-skooora",
+      "title": "سكورة",
+      "url": "https://skooora.com/",
+      "mode": "mtMask",
+      "enabled": true
+    },
+    {
+      "id": "dom-tv-siir-koora",
+      "title": "تي في سير",
+      "url": "https://tv-siir.net/koora-live/",
+      "mode": "mtMask",
+      "enabled": true
+    },
+    {
+      "id": "dom-askoralive",
+      "title": "اسكورة لايف",
+      "url": "https://www.askoralive.live/",
+      "mode": "mtMask",
+      "enabled": true
+    },
+    {
+      "id": "dom-koora4cam",
+      "title": "كورة 4 كام",
+      "url": "https://www.koora4.cam/",
+      "mode": "mtMask",
+      "enabled": true
+    },
+    {
+      "id": "dom-kooray-today",
+      "title": "كورة واي اليوم",
+      "url": "https://kooray-live.tv/today-matches/",
+      "mode": "mtMask",
+      "enabled": true
+    },
+    {
+      "id": "dom-koorapress-today",
+      "title": "كورة بريس اليوم",
+      "url": "https://koorapress.co/matches-today/",
+      "mode": "mtMask",
+      "enabled": true
+    },
+    {
+      "id": "dom-koooracity",
+      "title": "كورة سيتي",
+      "url": "https://koooracity.online/home1/",
+      "mode": "mtMask",
+      "enabled": true
+    },
+    {
+      "id": "dom-kora-en-direct",
+      "title": "كورة إن دايركت",
+      "url": "https://kora-en-direct.com/",
+      "mode": "mtMask",
+      "enabled": true
+    },
+    {
+      "id": "dom-koraxkora",
+      "title": "كوراكس كورة",
+      "url": "https://www.koraxkora.com/",
+      "mode": "mtMask",
+      "enabled": true
+    },
+    {
+      "id": "dom-livekora-io",
+      "title": "لايف كورة",
+      "url": "https://livekora.io/",
+      "mode": "mtMask",
+      "enabled": true
+    },
+    {
+      "id": "dom-korralive",
+      "title": "كورا لايف",
+      "url": "https://korralive.online/",
+      "mode": "overlayMatch",
+      "enabled": true
+    },
+    {
+      "id": "dom-koore-live",
+      "title": "كوري لايف",
+      "url": "https://koore.live/",
+      "mode": "liveStatus",
+      "enabled": true
+    },
+    {
+      "id": "dom-bookonline",
+      "title": "بوك أونلاين",
+      "url": "https://www.bookonline.life/",
+      "mode": "overlayMatch",
+      "enabled": true
+    },
+    {
+      "id": "dom-kogacity",
+      "title": "كوجا سيتي",
+      "url": "https://www.kogacity.life/",
+      "mode": "overlayMatch",
+      "enabled": true
+    },
+    {
+      "id": "dom-yallakoraa",
+      "title": "يلا كورة",
+      "url": "https://yallakoraa.me/",
+      "mode": "overlayMatch",
+      "enabled": true
+    },
+    {
+      "id": "dom-kora-ws",
+      "title": "كورة WS",
+      "url": "https://kora.ws/",
+      "mode": "manual",
+      "enabled": true
+    },
+    {
+      "id": "dom-kora4k",
+      "title": "كورة 4K",
+      "url": "https://kora4k-live.com/",
+      "mode": "manual",
+      "enabled": true
+    },
+    {
+      "id": "dom-koora-llive",
+      "title": "كورة إل لايف",
+      "url": "https://koora-llive.blog/",
+      "mode": "manual",
+      "enabled": true
+    },
+    {
+      "id": "dom-koooramix",
+      "title": "كورة مكس",
+      "url": "https://koooramix.tv/",
+      "mode": "manual",
+      "enabled": true
+    },
+    {
+      "id": "dom-kora360",
+      "title": "كورة 360",
+      "url": "https://kora360tvs.blog/",
+      "mode": "manual",
+      "enabled": true
+    },
+    {
+      "id": "dom-acmawards",
+      "title": "ACM Awards",
+      "url": "https://www.acmawards50.com/",
+      "mode": "manual",
+      "enabled": true
+    },
+    {
+      "id": "dom-kooora4lives",
+      "title": "كورة 4 لايفز",
+      "url": "https://kooora4lives.co/",
+      "mode": "manual",
+      "enabled": true
+    },
+    {
+      "id": "dom-kooraaliive",
+      "title": "كورة ألايف",
+      "url": "https://www.kooraaliive.com/directos",
+      "mode": "manual",
+      "enabled": true
+    },
+    {
+      "id": "dom-yalla-shoote",
+      "title": "يلا شوت",
+      "url": "https://www.yalla-shoote.today/",
+      "mode": "manual",
+      "enabled": true
+    },
+    {
+      "id": "dom-kooraliv-one",
+      "title": "كورة ليف",
+      "url": "https://kooraliv.one/",
+      "mode": "manual",
+      "enabled": true
+    },
+    {
+      "id": "dom-koraextralive",
+      "title": "كورة اكسترا",
+      "url": "https://koraextralive.com/",
+      "mode": "manual",
+      "enabled": true
+    },
+    {
+      "id": "dom-live-kooratv",
+      "title": "لايف كورة TV",
+      "url": "https://live-kooratv.com/",
+      "mode": "manual",
+      "enabled": true
+    },
+    {
+      "id": "dom-gonzalopuch",
+      "title": "جونزالو بوتش",
+      "url": "https://gonzalopuch.com/",
+      "mode": "manual",
+      "enabled": true
+    },
+    {
+      "id": "dom-kora-citiy",
+      "title": "كورة سيتي لايف",
+      "url": "https://kora-citiy.live/",
+      "mode": "manual",
+      "enabled": true
+    },
+    {
+      "id": "dom-koraplus-hd",
+      "title": "كورة بلس HD",
+      "url": "https://www.koraplus-hd.com/",
+      "mode": "manual",
+      "enabled": true
+    },
+    {
+      "id": "dom-kora-blog",
+      "title": "كورة بلوج",
+      "url": "https://kora.blog/",
+      "mode": "manual",
+      "enabled": true
+    },
+    {
+      "id": "dom-kora-live-now",
+      "title": "كورة لايف ناو",
+      "url": "https://www.kora-live.now/",
+      "mode": "manual",
+      "enabled": true
+    },
+    {
+      "id": "dom-koramatch",
+      "title": "كورة ماتش",
+      "url": "https://koramatch.com/",
+      "mode": "manual",
+      "enabled": true
+    },
+    {
+      "id": "dom-tv-siir-online",
+      "title": "تي في سير أونلاين",
+      "url": "https://tv-siir.net/kora-online/",
+      "mode": "manual",
+      "enabled": true
+    },
+    {
+      "id": "dom-koooralive360",
+      "title": "كورة لايف 360",
+      "url": "https://koooralive360.com/",
+      "mode": "manual",
+      "enabled": true
+    },
+    {
+      "id": "dom-koor-info",
+      "title": "كور إنفو",
+      "url": "https://koor.info/",
+      "mode": "manual",
+      "enabled": true
+    },
+    {
+      "id": "dom-hikoralive",
+      "title": "هاي كورة لايف",
+      "url": "https://www.hikoralive.com/",
+      "mode": "manual",
+      "enabled": true
+    },
+    {
+      "id": "dom-tvsir-today",
+      "title": "تي في سير اليوم",
+      "url": "https://tvsir.tv/matches-today/",
+      "mode": "manual",
+      "enabled": true
+    },
+    {
+      "id": "dom-koralcity",
+      "title": "كورال سيتي",
+      "url": "https://www.koralcity.website/",
+      "mode": "manual",
+      "enabled": true
+    },
+    {
+      "id": "dom-kora-livex",
+      "title": "كورة لايفكس",
+      "url": "https://kora-livex.link/",
+      "mode": "manual",
+      "enabled": true
+    }
+  ],
+  "customBrowser": {
+    "enabled": true,
+    "title": "فتح أي رابط مباراة",
+    "subtitle": "الصق رابط مباشر لمشغل المباراة وسوف يتم تشغيلها مع حظر الإعلانات",
+    "start_url": "https://www.google.com"
+  },
+  "channel1_url": "https://m4.kora-sami.com/splplayer/bmax1/",
+  "channel2_url": "https://k2.kore10.blog/albaplayer/p-1/?serv=1",
+  "channel3_url": "https://worldchampion.fun/welcome-4/",
+  "ch3_enabled": true,
+  "ch3_title_ar": "قناة 3",
+  "ch3_title_en": "CH 3",
+  "ch3_url": "https://we.shootsync.site/albaplayer/sniaer/?serv=0",
+  "ch4_enabled": false,
+  "ch4_title_ar": "ملقط المباريات",
+  "ch4_title_en": "Match Clipper",
+  "ch4_subtitle_ar": "ضع رابط المباراة فقط وضغط انتر",
+  "ch4_subtitle_en": "Paste the match link only and press Enter",
+  "ch4_streams": [],
+  "ch5_enabled": false,
+  "ch5_title_ar": "قناة 5",
+  "ch5_title_en": "CH 5",
+  "ch5_url": "https://we.shootsync.site/albaplayer/sniaer/?serv=0",
+  "watch_stream1_url": "https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_4x3/bipbop_4x3_variant.m3u8",
+  "watch_stream2_url": "https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_4x3/bipbop_4x3_variant.m3u8",
+  "watch_all_m3u": "",
+  "watch_yemen_m3u": "",
+  "featured_m3u": "",
+  "rotation_alert_enabled": false,
+  "rotation_alert_message": "لا تحرك جوالك بكثرة، عند الحركة البث يسوي تحديث يا نعجة",
+  "rotation_alert_button": "واصل",
+  "refresh_msg1": "اصبر... جاري التقاط البث ..",
+  "refresh_msg2": "",
+  "disclaimer_ar": "إخلاء المسؤولية – الشعيب سبورت\n\n• هذا التطبيق مخصص للأغراض الإعلامية والترفيهية فقط.\n• نتائج المباريات والإحصاءات مصدرها خدمات خارجية.\n• لا نتحمل مسؤولية أي أخطاء أو تأخير في البيانات.\n• التطبيق غير رسمي وغير مرتبط بأي اتحاد أو هيئة كروية.",
+  "disclaimer_en": "Disclaimer – ShaibSport\n\n• This app is intended for informational and entertainment purposes only.\n• Match results and statistics are sourced from third-party services.\n• We are not responsible for any errors or delays in data.\n• This app is unofficial and not affiliated with any football federation or body.",
+  "game_enabled": true,
+  "ai_assistant_enabled": true,
+  "ai_assistant_title_ar": "مساعد رياضي",
+  "ai_assistant_title_en": "Sports AI",
+  "ai_assistant_subtitle_ar": "مساعد ذكي للمباريات • Apple AI",
+  "ai_assistant_subtitle_en": "AI-powered sports chat • Apple AI",
+  "majabir_enabled": true,
+  "majabir_title_ar": "جابر المجابر",
+  "majabir_title_en": "Jabber The AI Assistant",
+  "majabir_subtitle_ar": "مساعد رياضي ذكي • بدون إنترنت",
+  "majabir_subtitle_en": "AI Sports Chat • Offline",
+  "najaa_tube_enabled": false,
+  "najaa_tube_title_ar": "تحميل برنامج النعجة تووب",
+  "najaa_tube_title_en": "EweTube",
+  "najaa_tube_url": "",
+  "ilm_enabled": false,
+  "ilm_title_ar": "اطلب العلم الشرعي مجاناً مع شهادة موثقة",
+  "ilm_title_en": "Study Islamic Law Free – With Certificate",
+  "ilm_url": "https://www.southyemenusa.com/2026/06/youth-south-california-zad-academy-invitation.html",
+  "fan_center_update_enabled": false,
+  "youtube_moments_url": "https://www.youtube.com/watch?v=LRkMTi2bNDU&list=PLczz3UIGL1XomL2PAj_YUCcwXuXm2PRm1",
+  "world_cup_tour_url": "https://www.yallakora.com/tour-videos/125/%d9%81%d9%8a%d8%af%d9%8a%d9%88%d9%87%d8%a7%d8%aa-%d9%83%d8%a3%d8%b3-%d8%a7%d9%84%d8%b9%d8%a7%d9%84%d9%85#wc-menu",
+  "videos_enabled": false,
+  "scorebat_token": "MzYwNTUyXzE3ODQyMjgzNDhfZjAzZWFlZWYzYWQ4M2JmYzYxOTY4MGQ1NmU1ZDEyYWVjYTJlODAzZg==",
+  "scorebat_feed": "free-feed",
+  "videos_title_ar": "فيديوهات",
+  "videos_title_en": "Videos",
+  "match_replays_visible": false,
+  "match_replays_url": "https://tubitv.com/tv-shows/200371229/usa-vs-belgium",
+  "match_replays_title": "اعادة المباريات",
+  "match_replays_title_en": "Match Replays",
+  "movies_visible": false,
+  "movies_url": "https://tubitv.com/movies/100029237/lionel-messi-the-greatest",
+  "movies_title": "افلام",
+  "movies_title_en": "Movies"
+}

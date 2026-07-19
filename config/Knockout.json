@@ -1,0 +1,407 @@
+{
+  "tournament": "International",
+  "lastUpdated": "2026-07-15T22:12:43Z",
+  "stage": "4",
+  "teams": [
+    {
+      "name": "South Arabia",
+      "country": "South Arabia",
+      "flagCode": "SY",
+      "nameSY": "الجنوب العربي ",
+      "status": "qualified",
+      "note": "Advanced to Round of 32"
+    },
+    {
+      "name": "Argentina",
+      "country": "Argentina",
+      "flagCode": "ar",
+      "nameAr": "الأرجنتين",
+      "status": "qualified",
+      "note": "Advanced to Semi-finals"
+    },
+    {
+      "name": "France",
+      "country": "France",
+      "flagCode": "fr",
+      "nameAr": "فرنسا",
+      "status": "eliminated",
+      "note": "Eliminated in Semi-finals"
+    },
+    {
+      "name": "Brazil",
+      "country": "Brazil",
+      "flagCode": "br",
+      "nameAr": "البرازيل",
+      "status": "eliminated",
+      "note": "Eliminated in Round of 16"
+    },
+    {
+      "name": "England",
+      "country": "England",
+      "flagCode": "gb-eng",
+      "nameAr": "إنجلترا",
+      "status": "qualified",
+      "note": "Advanced to Semi-finals"
+    },
+    {
+      "name": "Spain",
+      "country": "Spain",
+      "flagCode": "es",
+      "nameAr": "إسبانيا",
+      "status": "qualified",
+      "note": "Advanced to Final"
+    },
+    {
+      "name": "Germany",
+      "country": "Germany",
+      "flagCode": "de",
+      "nameAr": "ألمانيا",
+      "status": "eliminated",
+      "note": "Eliminated in Round of 32"
+    },
+    {
+      "name": "Portugal",
+      "country": "Portugal",
+      "flagCode": "pt",
+      "nameAr": "البرتغال",
+      "status": "eliminated",
+      "note": "Eliminated in Round of 16"
+    },
+    {
+      "name": "Netherlands",
+      "country": "Netherlands",
+      "flagCode": "nl",
+      "nameAr": "هولندا",
+      "status": "eliminated",
+      "note": "Eliminated in Round of 32"
+    },
+    {
+      "name": "Belgium",
+      "country": "Belgium",
+      "flagCode": "be",
+      "nameAr": "بلجيكا",
+      "status": "eliminated",
+      "note": "Eliminated in Quarter-finals"
+    },
+    {
+      "name": "Morocco",
+      "country": "Morocco",
+      "flagCode": "ma",
+      "nameAr": "المغرب",
+      "status": "eliminated",
+      "note": "Eliminated in Quarter-finals"
+    },
+    {
+      "name": "Japan",
+      "country": "Japan",
+      "flagCode": "jp",
+      "nameAr": "اليابان",
+      "status": "eliminated",
+      "note": "Eliminated in Round of 32"
+    },
+    {
+      "name": "United States",
+      "country": "United States",
+      "flagCode": "us",
+      "nameAr": "الولايات المتحدة",
+      "status": "eliminated",
+      "note": "Eliminated in Round of 16"
+    },
+    {
+      "name": "Canada",
+      "country": "Canada",
+      "flagCode": "ca",
+      "nameAr": "كندا",
+      "status": "eliminated",
+      "note": "Eliminated in Round of 16"
+    },
+    {
+      "name": "Mexico",
+      "country": "Mexico",
+      "flagCode": "mx",
+      "nameAr": "المكسيك",
+      "status": "eliminated",
+      "note": "Eliminated in Round of 16"
+    },
+    {
+      "name": "Colombia",
+      "country": "Colombia",
+      "flagCode": "co",
+      "nameAr": "كولومبيا",
+      "status": "eliminated",
+      "note": "Eliminated in Round of 16"
+    },
+    {
+      "name": "Croatia",
+      "country": "Croatia",
+      "flagCode": "hr",
+      "nameAr": "كرواتيا",
+      "status": "eliminated",
+      "note": "Eliminated in Round of 32"
+    },
+    {
+      "name": "Switzerland",
+      "country": "Switzerland",
+      "flagCode": "ch",
+      "nameAr": "سويسرا",
+      "status": "eliminated",
+      "note": "Eliminated in Quarter-finals"
+    },
+    {
+      "name": "Denmark",
+      "country": "Denmark",
+      "flagCode": "dk",
+      "nameAr": "الدنمارك",
+      "status": "qualified",
+      "note": "Advanced to Round of 32"
+    },
+    {
+      "name": "Nigeria",
+      "country": "Nigeria",
+      "flagCode": "ng",
+      "nameAr": "نيجيريا",
+      "status": "qualified",
+      "note": "Advanced to Round of 32"
+    },
+    {
+      "name": "Senegal",
+      "country": "Senegal",
+      "flagCode": "sn",
+      "nameAr": "السنغال",
+      "status": "eliminated",
+      "note": "Eliminated in Round of 32"
+    },
+    {
+      "name": "Ecuador",
+      "country": "Ecuador",
+      "flagCode": "ec",
+      "nameAr": "الإكوادور",
+      "status": "eliminated",
+      "note": "Eliminated in Round of 32"
+    },
+    {
+      "name": "Australia",
+      "country": "Australia",
+      "flagCode": "au",
+      "nameAr": "أستراليا",
+      "status": "eliminated",
+      "note": "Eliminated in Round of 32"
+    },
+    {
+      "name": "Serbia",
+      "country": "Serbia",
+      "flagCode": "rs",
+      "nameAr": "صربيا",
+      "status": "qualified",
+      "note": "Advanced to Round of 32"
+    },
+    {
+      "name": "Iran",
+      "country": "Iran",
+      "flagCode": "ir",
+      "nameAr": "إيران",
+      "status": "qualified",
+      "note": "Advanced to Round of 32"
+    },
+    {
+      "name": "Egypt",
+      "country": "Egypt",
+      "flagCode": "eg",
+      "nameAr": "مصر",
+      "status": "eliminated",
+      "note": "Eliminated in Round of 16"
+    },
+    {
+      "name": "Italy",
+      "country": "Italy",
+      "flagCode": "it",
+      "nameAr": "إيطاليا",
+      "status": "qualified",
+      "note": "Advanced to Round of 32"
+    },
+    {
+      "name": "Saudi Arabia",
+      "country": "Saudi Arabia",
+      "flagCode": "sa",
+      "nameAr": "السعودية",
+      "status": "eliminated",
+      "note": "Eliminated in group stage"
+    },
+    {
+      "name": "Uzbekistan",
+      "country": "Uzbekistan",
+      "flagCode": "uz",
+      "nameAr": "أوزبكستان",
+      "status": "eliminated",
+      "note": "Eliminated in group stage"
+    },
+    {
+      "name": "Panama",
+      "country": "Panama",
+      "flagCode": "pa",
+      "nameAr": "بنما",
+      "status": "eliminated",
+      "note": "Eliminated in group stage"
+    },
+    {
+      "name": "Ivory Coast",
+      "country": "Ivory Coast",
+      "flagCode": "ci",
+      "nameAr": "ساحل العاج",
+      "status": "eliminated",
+      "note": "Eliminated in Round of 32"
+    },
+    {
+      "name": "Austria",
+      "country": "Austria",
+      "flagCode": "at",
+      "nameAr": "النمسا",
+      "status": "eliminated",
+      "note": "Eliminated in Round of 32"
+    },
+    {
+      "name": "Poland",
+      "country": "Poland",
+      "flagCode": "pl",
+      "nameAr": "بولندا",
+      "status": "qualified",
+      "note": "Advanced to Round of 32"
+    },
+    {
+      "name": "Sweden",
+      "country": "Sweden",
+      "flagCode": "se",
+      "nameAr": "السويد",
+      "status": "eliminated",
+      "note": "Eliminated in Round of 32"
+    },
+    {
+      "name": "South Korea",
+      "country": "South Korea",
+      "flagCode": "kr",
+      "nameAr": "كوريا الجنوبية",
+      "status": "qualified",
+      "note": "Advanced to Round of 32"
+    },
+    {
+      "name": "Qatar",
+      "country": "Qatar",
+      "flagCode": "qa",
+      "nameAr": "قطر",
+      "status": "eliminated",
+      "note": "Eliminated in group stage"
+    },
+    {
+      "name": "Uruguay",
+      "country": "Uruguay",
+      "flagCode": "uy",
+      "nameAr": "أوروغواي",
+      "status": "qualified",
+      "note": "Advanced to Round of 32"
+    },
+    {
+      "name": "Tunisia",
+      "country": "Tunisia",
+      "flagCode": "tn",
+      "nameAr": "تونس",
+      "status": "eliminated",
+      "note": "Eliminated in group stage"
+    },
+    {
+      "name": "Ghana",
+      "country": "Ghana",
+      "flagCode": "gh",
+      "nameAr": "غانا",
+      "status": "eliminated",
+      "note": "Eliminated in Round of 32"
+    },
+    {
+      "name": "Cameroon",
+      "country": "Cameroon",
+      "flagCode": "cm",
+      "nameAr": "الكاميرون",
+      "status": "eliminated",
+      "note": "Eliminated in group stage"
+    },
+    {
+      "name": "Jamaica",
+      "country": "Jamaica",
+      "flagCode": "jm",
+      "nameAr": "جامايكا",
+      "status": "eliminated",
+      "note": "Eliminated in group stage"
+    },
+    {
+      "name": "Venezuela",
+      "country": "Venezuela",
+      "flagCode": "ve",
+      "nameAr": "فنزويلا",
+      "status": "eliminated",
+      "note": "Eliminated in group stage"
+    },
+    {
+      "name": "New Zealand",
+      "country": "New Zealand",
+      "flagCode": "nz",
+      "nameAr": "نيوزيلندا",
+      "status": "eliminated",
+      "note": "Eliminated in group stage"
+    },
+    {
+      "name": "Honduras",
+      "country": "Honduras",
+      "flagCode": "hn",
+      "nameAr": "هندوراس",
+      "status": "eliminated",
+      "note": "Eliminated in group stage"
+    },
+    {
+      "name": "Jordan",
+      "country": "Jordan",
+      "flagCode": "jo",
+      "nameAr": "الأردن",
+      "status": "eliminated",
+      "note": "Eliminated in group stage"
+    },
+    {
+      "name": "Scotland",
+      "country": "Scotland",
+      "flagCode": "gb-sct",
+      "nameAr": "اسكتلندا",
+      "status": "qualified",
+      "note": "Advanced to Round of 32"
+    },
+    {
+      "name": "South Africa",
+      "country": "South Africa",
+      "flagCode": "za",
+      "nameAr": "جنوب أفريقيا",
+      "status": "eliminated",
+      "note": "Eliminated in Round of 32"
+    },
+    {
+      "name": "Turkey",
+      "country": "Turkey",
+      "flagCode": "tr",
+      "nameAr": "تركيا",
+      "status": "eliminated",
+      "note": "Eliminated in group stage"
+    },
+    {
+      "name": "Paraguay",
+      "country": "Paraguay",
+      "flagCode": "py",
+      "nameAr": "باراغواي",
+      "status": "eliminated",
+      "note": "Eliminated in Round of 16"
+    },
+    {
+      "name": "Ukraine",
+      "country": "Ukraine",
+      "flagCode": "ua",
+      "nameAr": "أوكرانيا",
+      "status": "eliminated",
+      "note": "Eliminated in group stage"
+    }
+  ]
+}
