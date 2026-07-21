@@ -444,7 +444,8 @@ export function createPlayerController(opts) {
 
   /**
    * Ch1/Ch2: SW proxy for popup-kill + muted autoplay inject.
-   * If SW is not controlling (app shell) or proxy 502s, fall back to direct — no sandbox.
+   * If SW is not controlling (app shell) or proxy 502s, fall back to direct
+   * with a popup-blocking sandbox (no injected shield reaches raw cross-origin HTML).
    */
   function mountProxiedWithDirectFallback(url) {
     const proxyUrl = proxiedPlayerUrl(url);
@@ -458,6 +459,10 @@ export function createPlayerController(opts) {
       if (fellBack || currentIframe !== frame) return;
       fellBack = true;
       try {
+        // No shield JS reaches an unproxied cross-origin frame — sandbox
+        // (still allow-same-origin/scripts so video keeps playing) is the
+        // only lever left to stop a popup/new-tab ad on this fallback path.
+        frame.setAttribute("sandbox", PLAYER_NO_POPUP_SANDBOX);
         frame.src = url;
       } catch (_) {}
     };
@@ -527,7 +532,7 @@ export function createPlayerController(opts) {
           return mounted;
         }
         const frame = configureFrame(
-          mountLockedIframe(url, { sandbox: false })
+          mountLockedIframe(url, { noPopups: true })
         );
         currentIframe = frame;
         return { frame, mode: "direct-ch1" };
@@ -571,7 +576,7 @@ export function createPlayerController(opts) {
       }
     } catch (_) {}
 
-    const frame = configureFrame(mountLockedIframe(url, { sandbox: false }));
+    const frame = configureFrame(mountLockedIframe(url, { noPopups: true }));
     currentIframe = frame;
     return { frame, mode: "direct" };
   }
@@ -709,7 +714,7 @@ export function createPlayerController(opts) {
       status.textContent = t("adblockScanning");
     } catch (_) {
       stage.innerHTML = "";
-      const frame = configureFrame(mountLockedIframe(tile.url, { sandbox: false }));
+      const frame = configureFrame(mountLockedIframe(tile.url, { noPopups: true }));
       stage.appendChild(frame);
       currentIframe = frame;
       status.textContent = t("adblockOn");
