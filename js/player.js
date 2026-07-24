@@ -68,6 +68,32 @@ function isChannel3Site(url = "") {
   return /worldchampion\.fun/i.test(String(url || ""));
 }
 
+/** Tubi sends X-Frame-Options/CSP frame-ancestors — iframes always show "refused to connect". */
+function isTubiUrl(url = "") {
+  return /(^|\.)tubitv\.com/i.test(String(url || ""));
+}
+
+/** Fallback panel for hosts that block framing: open in a real tab instead of a broken iframe. */
+function externalOpenPanel(url, t) {
+  const wrap = document.createElement("div");
+  wrap.className = "loading";
+  wrap.style.cssText = "margin:40px;border:0;display:flex;flex-direction:column;gap:14px;align-items:center";
+  const msg = document.createElement("div");
+  msg.textContent = t("openDirect");
+  wrap.appendChild(msg);
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "btn";
+  btn.textContent = t("openLink");
+  btn.addEventListener("click", () => {
+    try {
+      window.open(url, "_blank", "noopener,noreferrer");
+    } catch (_) {}
+  });
+  wrap.appendChild(btn);
+  return wrap;
+}
+
 function isMobileDevice() {
   const ua = navigator.userAgent || "";
   if (/iPhone|iPad|iPod|Android|Mobile|webOS|BlackBerry|IEMobile|Opera Mini/i.test(ua)) {
@@ -670,8 +696,19 @@ export function createPlayerController(opts) {
     body.innerHTML = "";
     body.appendChild(wrap);
 
-    // Direct tiles bypass the adblock frame: Fox, Tubi, and YouTube reject shielded players.
+    // Direct tiles bypass the adblock frame: Fox and YouTube reject shielded players.
     if (tile.fox || tile.directEmbed) {
+      // Tubi blocks framing entirely (X-Frame-Options / CSP) — an iframe always fails
+      // with "refused to connect", so open it in a real tab instead.
+      if (isTubiUrl(tile.url)) {
+        stage.innerHTML = "";
+        stage.appendChild(externalOpenPanel(tile.url, t));
+        status.textContent = t("openDirect");
+        try {
+          window.open(tile.url, "_blank", "noopener,noreferrer");
+        } catch (_) {}
+        return;
+      }
       const frame = configureFrame(mountLockedIframe(tile.url, { sandbox: false }));
       stage.appendChild(frame);
       currentIframe = frame;
