@@ -1014,7 +1014,7 @@ html[dir="rtl"] .team.home { text-align: end; align-items: end; }
   bottom: 0;
   z-index: 60;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   gap: 2px;
   padding: 8px 6px calc(8px + var(--safe-bottom));
   background: rgba(13, 13, 18, 0.94);

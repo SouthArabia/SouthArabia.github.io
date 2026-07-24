@@ -244,6 +244,31 @@ export function buildCanvasModel(cfg = {}) {
   };
 }
 
+/** Same defaults/keys as the iOS app's TubiChromeRemoteConfig / LiveConfigService. */
+const REPLAY_URL_DEFAULT = "https://tubitv.com/tv-shows/200371229/usa-vs-belgium";
+const YT_PLAYLIST_ID_DEFAULT = "PLFHate8uTYrk";
+const YT_MOMENTS_URL_DEFAULT =
+  "https://www.youtube.com/watch?v=LRkMTi2bNDU&list=PLczz3UIGL1XomL2PAj_YUCcwXuXm2PRm1";
+
+export function buildReplayModel(cfg = {}) {
+  const url = String(cfg.match_replays_url || "").trim() || REPLAY_URL_DEFAULT;
+  return {
+    url,
+    titleAr: cfg.match_replays_title_ar || cfg.match_replays_title || "اعادة المباريات",
+    titleEn: cfg.match_replays_title_en || "Match Replays",
+  };
+}
+
+export function buildHighlightsModel(cfg = {}) {
+  const playlistId = cfg.youtube_playlist_id || YT_PLAYLIST_ID_DEFAULT;
+  return {
+    titleAr: cfg.highlights_title_ar || "لحظات مهمه",
+    titleEn: cfg.highlights_title_en || "Highlights",
+    playlistUrl: `https://m.youtube.com/playlist?list=${playlistId}`,
+    momentsUrl: cfg.youtube_moments_url || YT_MOMENTS_URL_DEFAULT,
+  };
+}
+
 let cached = null;
 
 export async function loadCanvasConfig(force = false) {

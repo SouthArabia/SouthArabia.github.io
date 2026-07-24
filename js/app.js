@@ -5,7 +5,7 @@ import {
   fetchInternationalBoard,
   fetchKnockout,
 } from "./api.js";
-import { loadCanvasConfig } from "./config.js";
+import { loadCanvasConfig, buildReplayModel, buildHighlightsModel } from "./config.js";
 import { icons, iconWrap } from "./icons.js";
 import { isLoggedIn, login, logout } from "./auth.js";
 import { createPlayerController } from "./player.js";
@@ -851,6 +851,83 @@ async function loadIptv(force = false) {
   }
 }
 
+/** Replay Match — single Tubi tile, opened via the shared adblock player sheet. */
+function renderReplay() {
+  const root = $("#replay-root");
+  if (!root) return;
+  const lang = state.prefs.lang;
+  const model = buildReplayModel(state.cache.canvas?.raw || {});
+  const tile = {
+    kind: "browser",
+    id: "replay-match",
+    title: lang === "ar" ? model.titleAr : model.titleEn,
+    subtitle: t(lang, "replaySub"),
+    url: model.url,
+    icon: "replay",
+  };
+  root.innerHTML = `<div class="canvas-wide">${tileButton(tile)}</div>`;
+  root.querySelector("[data-tile-id]")?.addEventListener("click", () => openPlayer(tile));
+}
+
+async function loadReplay(force = false) {
+  const root = $("#replay-root");
+  if (!root) return;
+  if (!force && state.cache.canvas) {
+    renderReplay();
+    return;
+  }
+  try {
+    state.cache.canvas = await loadCanvasConfig(force);
+  } catch (_) {}
+  renderReplay();
+}
+
+/** Highlights — YouTube playlist + Arabic moments tiles (Tubi/YT-style direct embed). */
+function renderHighlights() {
+  const root = $("#highlights-root");
+  if (!root) return;
+  const lang = state.prefs.lang;
+  const model = buildHighlightsModel(state.cache.canvas?.raw || {});
+  const tiles = [
+    {
+      kind: "browser",
+      id: "highlights-main",
+      title: t(lang, "highlightsMain"),
+      subtitle: t(lang, "highlightsMainSub"),
+      url: model.playlistUrl,
+      icon: "highlight",
+      directEmbed: true,
+    },
+    {
+      kind: "browser",
+      id: "highlights-arabic",
+      title: t(lang, "highlightsArabic"),
+      subtitle: t(lang, "highlightsArabicSub"),
+      url: model.momentsUrl,
+      icon: "highlight",
+      directEmbed: true,
+    },
+  ];
+  root.innerHTML = `<div class="canvas-grid">${tiles.map((tile) => tileButton(tile)).join("")}</div>`;
+  root.querySelectorAll("[data-tile-id]").forEach((btn) => {
+    const tile = tiles.find((x) => x.id === btn.dataset.tileId);
+    if (tile) btn.addEventListener("click", () => openPlayer(tile));
+  });
+}
+
+async function loadHighlights(force = false) {
+  const root = $("#highlights-root");
+  if (!root) return;
+  if (!force && state.cache.canvas) {
+    renderHighlights();
+    return;
+  }
+  try {
+    state.cache.canvas = await loadCanvasConfig(force);
+  } catch (_) {}
+  renderHighlights();
+}
+
 async function refreshActive(force = false) {
   paintChrome();
   const tab = state.prefs.tab;
@@ -858,6 +935,8 @@ async function refreshActive(force = false) {
   else if (tab === "today") await loadToday(force);
   else if (tab === "international") await loadInternational(force);
   else if (tab === "iptv") await loadIptv(force);
+  else if (tab === "replay") await loadReplay(force);
+  else if (tab === "highlights") await loadHighlights(force);
 }
 
 let hardRefreshBusy = false;
@@ -1037,7 +1116,7 @@ async function registerSW() {
   if (!("serviceWorker" in navigator)) return;
   try {
     await Promise.race([
-      navigator.serviceWorker.register("./sw.js?v=83"),
+      navigator.serviceWorker.register("./sw.js?v=84"),
       new Promise((r) => setTimeout(r, 2500)),
     ]);
   } catch (_) {}
