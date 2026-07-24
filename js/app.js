@@ -851,7 +851,7 @@ async function loadIptv(force = false) {
   }
 }
 
-/** Replay Match — single Tubi tile, opened via the shared adblock player sheet. */
+/** Replay Match — Tubi loads directly because it rejects shielded player frames. */
 function renderReplay() {
   const root = $("#replay-root");
   if (!root) return;
@@ -864,6 +864,7 @@ function renderReplay() {
     subtitle: t(lang, "replaySub"),
     url: model.url,
     icon: "replay",
+    directEmbed: true,
   };
   root.innerHTML = `<div class="canvas-wide">${tileButton(tile)}</div>`;
   root.querySelector("[data-tile-id]")?.addEventListener("click", () => openPlayer(tile));
@@ -1116,7 +1117,7 @@ async function registerSW() {
   if (!("serviceWorker" in navigator)) return;
   try {
     await Promise.race([
-      navigator.serviceWorker.register("./sw.js?v=84"),
+      navigator.serviceWorker.register("./sw.js?v=85"),
       new Promise((r) => setTimeout(r, 2500)),
     ]);
   } catch (_) {}

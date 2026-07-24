@@ -670,12 +670,12 @@ export function createPlayerController(opts) {
     body.innerHTML = "";
     body.appendChild(wrap);
 
-    // Fox Sport / YouTube tiles must load directly: their player detects proxy/shielded frames.
+    // Direct tiles bypass the adblock frame: Fox, Tubi, and YouTube reject shielded players.
     if (tile.fox || tile.directEmbed) {
       const frame = configureFrame(mountLockedIframe(tile.url, { sandbox: false }));
       stage.appendChild(frame);
       currentIframe = frame;
-      status.textContent = tile.fox ? "Fox Sport · direct player" : t("adblockOn");
+      status.textContent = "Direct player";
       return;
     }
 
