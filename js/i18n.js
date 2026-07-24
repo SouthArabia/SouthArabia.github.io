@@ -1,7 +1,7 @@
 const dict = {
   ar: {
     brandSub: "العالم بين يديك",
-    matches: "شاهد الان",
+    matches: "تشحر كبة",
     today: "اليوم",
     international: "كأس العالم",
     iptv: "تلفاز مباشر",
@@ -22,7 +22,7 @@ const dict = {
     playerExit: "إغلاق",
     playerChannels: "قناة",
     settings: "إعدادات",
-    matchesTitle: "شاهد الان",
+    matchesTitle: "تشحر كبة",
     matchesSub: "القنوات والمواقع والبث",
     todayTitle: "اليوم",
     todaySub: "مباريات اليوم والدولية",
@@ -111,7 +111,7 @@ const dict = {
   },
   en: {
     brandSub: "The world in your hands",
-    matches: "Watch",
+    matches: "Tashhar Kaba",
     today: "Today",
     international: "World Cup",
     iptv: "Live TV",
@@ -132,7 +132,7 @@ const dict = {
     playerExit: "Exit",
     playerChannels: "channel",
     settings: "Settings",
-    matchesTitle: "Watch",
+    matchesTitle: "Tashhar Kaba",
     matchesSub: "Channels, sites, and live streams",
     todayTitle: "Today",
     todaySub: "Today’s fixtures & internationals",

@@ -1117,9 +1117,9 @@ html[dir="rtl"] .team.home { text-align: end; align-items: end; }
   background: var(--accent-soft);
 }
 
-/* Watch / شاهد الان — same style as other tabs + green ping */
+/* Live TV — same style as other tabs + green ping */
 .tabbar button.tab-watch::after,
-.tabbar button[data-tab="matches"]::after {
+.tabbar button[data-tab="iptv"]::after {
   content: "";
   position: absolute;
   top: 6px;

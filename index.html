@@ -155,7 +155,7 @@
   <main class="page" data-page="matches">
     <div class="section-head">
       <div>
-        <h1 id="matches-heading">شاهد الان</h1>
+        <h1 id="matches-heading">تشحر كبة</h1>
         <p data-i18n="matchesSub">القنوات والمواقع والبث</p>
       </div>
     </div>
@@ -308,11 +308,11 @@
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h6v5H4zM14 6h6v5h-6zM9 14h6v5H9z"/><path d="M7 11v3h10v-3"/></svg>
       <span>World Cup</span>
     </button>
-    <button type="button" data-tab="matches" class="active tab-watch" aria-label="شاهد الان">
+    <button type="button" data-tab="matches" class="active" aria-label="تشحر كبة">
       <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-      <span>شاهد الان</span>
+      <span>تشحر كبة</span>
     </button>
-    <button type="button" data-tab="iptv">
+    <button type="button" data-tab="iptv" class="tab-watch">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v10H4z"/><path d="m8 19 4-4 4 4"/><path d="M12 15v4"/></svg>
       <span>تلفاز مباشر</span>
     </button>
@@ -340,7 +340,7 @@
     // reload with no SW/cache involved at all, guarded by a version marker
     // so it only happens once per deploy instead of looping forever.
     (function () {
-      var FORCE_KEY = "shaib_pwa_force_fresh_v86";
+      var FORCE_KEY = "shaib_pwa_force_fresh_v87";
       var alreadyForced = false;
       try {
         alreadyForced = localStorage.getItem(FORCE_KEY) === "1";
@@ -366,14 +366,14 @@
           if (hadAnythingStale) {
             location.reload();
           } else {
-            navigator.serviceWorker.register("./sw.js?v=86").catch(function () {});
+            navigator.serviceWorker.register("./sw.js?v=87").catch(function () {});
           }
         });
         return;
       }
 
       if (!("serviceWorker" in navigator)) return;
-      var SW_URL = "./sw.js?v=86";
+      var SW_URL = "./sw.js?v=87";
       navigator.serviceWorker.getRegistrations().then(function (regs) {
         return Promise.all(
           regs.map(function (r) {

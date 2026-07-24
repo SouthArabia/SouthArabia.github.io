@@ -234,8 +234,8 @@ export function buildCanvasModel(cfg = {}) {
       : null;
 
   return {
-    tabTitleAr: cfg.live_title || "شاهد الان",
-    tabTitleEn: cfg.live_title_en || "Watch",
+    tabTitleAr: cfg.live_title || "تشحر كبة",
+    tabTitleEn: cfg.live_title_en || "Tashhar Kaba",
     topTiles: [...topBrowsers, ...domains],
     custom,
     ch4,
