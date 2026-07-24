@@ -325,6 +325,8 @@ function ensurePlayer() {
 
 function openPlayer(tile) {
   const sheet = $("#player-sheet");
+  const autoSkip = $("#player-autoskip");
+  if (autoSkip) autoSkip.hidden = !(Array.isArray(tile.playlist) && tile.playlist.length > 1);
   sheet.hidden = false;
   // Tile tap counts as a user gesture — start playback ASAP
   ensurePlayer().openTile(tile);
@@ -1117,7 +1119,7 @@ async function registerSW() {
   if (!("serviceWorker" in navigator)) return;
   try {
     await Promise.race([
-      navigator.serviceWorker.register("./sw.js?v=85"),
+      navigator.serviceWorker.register("./sw.js?v=86"),
       new Promise((r) => setTimeout(r, 2500)),
     ]);
   } catch (_) {}

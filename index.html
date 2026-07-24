@@ -340,7 +340,7 @@
     // reload with no SW/cache involved at all, guarded by a version marker
     // so it only happens once per deploy instead of looping forever.
     (function () {
-      var FORCE_KEY = "shaib_pwa_force_fresh_v85";
+      var FORCE_KEY = "shaib_pwa_force_fresh_v86";
       var alreadyForced = false;
       try {
         alreadyForced = localStorage.getItem(FORCE_KEY) === "1";
@@ -366,14 +366,14 @@
           if (hadAnythingStale) {
             location.reload();
           } else {
-            navigator.serviceWorker.register("./sw.js?v=85").catch(function () {});
+            navigator.serviceWorker.register("./sw.js?v=86").catch(function () {});
           }
         });
         return;
       }
 
       if (!("serviceWorker" in navigator)) return;
-      var SW_URL = "./sw.js?v=85";
+      var SW_URL = "./sw.js?v=86";
       navigator.serviceWorker.getRegistrations().then(function (regs) {
         return Promise.all(
           regs.map(function (r) {
@@ -391,7 +391,7 @@
       }).catch(function () {});
     })();
   </script>
-  <script type="module" src="./js/app.js?v=85"></script>
+  <script type="module" src="./js/app.js?v=86"></script>
   <script>
     (function () {
       // Lightweight tab switching fallback (works even if modules are busy)
